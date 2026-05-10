@@ -1,6 +1,8 @@
 import Navbar from '../components/Navbar';
 import profileImg from '../assets/dummy.jpg';
 import cvFile from '../assets/CV_Ferry-Firmando.pdf';
+import tsMediaLogo from '../assets/logo-ts-media-main.png';
+import cakrawalaLogo from '../assets/logo-cakrawala-v2.webp';
 
 const About = () => {
   return (
@@ -93,7 +95,7 @@ const About = () => {
               
               {/* Logo Perusahaan */}
               <img 
-                src="src\assets\logo-ts-media-main.png" 
+                src={tsMediaLogo} 
                 alt="TS Media Logo" 
                 className="mt-4 w-20 h-20 rounded-md object-contain bg-white border border-gray-200 shadow-sm"
               />
@@ -110,7 +112,7 @@ const About = () => {
               
               {/* Logo Universitas */}
               <img 
-                src="src\assets\logo-cakrawala-v2.webp" 
+                src={cakrawalaLogo} 
                 alt="Cakrawala University Logo" 
                 className="mt-4 w-20 h-20 rounded-md object-contain bg-white border border-gray-200 shadow-sm"
               />
