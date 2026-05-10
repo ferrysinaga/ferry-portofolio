@@ -1,12 +1,18 @@
-import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
+import Project from './pages/project';
+import About from './pages/about';
 
-function Home() {
+function App() {
   return (
-    <div>
-      <Navbar />
-      <h1>Welcome to the Homepage</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/project" element={<Project />} />
+      </Routes>
+    </Router>
   );
 }
 
-export default Home;
+export default App;
