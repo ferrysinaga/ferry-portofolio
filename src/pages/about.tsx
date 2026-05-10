@@ -1,4 +1,3 @@
-import React from 'react';
 import Navbar from '../components/Navbar';
 import profileImg from '../assets/dummy.jpg';
 import cvFile from '../assets/CV_Ferry-Firmando.pdf';
