@@ -90,6 +90,13 @@ const About = () => {
               <p className="text-gray-600 mt-3 leading-relaxed">
                 As a versatile Video Editor, Graphics Designer, Photographer, and Videographer, I have consistently delivered impactful visual content across multiple platforms. My role focused on helping social media division make content that drives engagement, strengthens brand identity, and tells compelling stories.
               </p>
+              
+              {/* Logo Perusahaan */}
+              <img 
+                src="src\assets\logo-ts-media-main.png" 
+                alt="TS Media Logo" 
+                className="mt-4 w-20 h-20 rounded-md object-contain bg-white border border-gray-200 shadow-sm"
+              />
             </div>
 
             {/* Item 2 */}
@@ -100,6 +107,13 @@ const About = () => {
               <p className="text-gray-600 mt-3 leading-relaxed">
                 Currently pursuing a degree in Computer Science. Building a strong foundation in software engineering principles, algorithms, and web technologies.
               </p>
+              
+              {/* Logo Universitas */}
+              <img 
+                src="src\assets\logo-cakrawala-v2.webp" 
+                alt="Cakrawala University Logo" 
+                className="mt-4 w-20 h-20 rounded-md object-contain bg-white border border-gray-200 shadow-sm"
+              />
             </div>
           </div>
         </div>
