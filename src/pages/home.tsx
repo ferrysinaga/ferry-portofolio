@@ -6,13 +6,13 @@ const Home = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <main className="box-border px-[120px] py-24 flex flex-col justify-center">
+      <main className="box-border px-8 md:px-[120px] py-24 flex flex-col justify-center">
         <h1 className="text-5xl md:text-6xl font-bold text-[#1d1d1d] leading-tight tracking-tight">
-          Crafting Intuitive <br /> Digital Experiences.
+          Designing Logic. <br /> Coding Magic.
         </h1>
         
         <p className="mt-6 text-lg text-gray-500 max-w-2xl leading-relaxed" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
-          Where logic meets creativity. I combine my Computer Science background with a passion for UI/UX and Web Development to build solutions that are both beautiful and highly functional.
+          I turn complex problems into pixel-perfect digital experiences. No fluff, just clean code and intuitive design.
         </p>
       </main>
     </div>

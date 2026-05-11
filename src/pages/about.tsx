@@ -12,10 +12,10 @@ const About = () => {
       <Navbar />
 
       {/* Konten halaman About */}
-      <main className="box-border px-[120px] py-10">
+      <main className="box-border px-8 md:px-[120px] py-10">
         <h1 
-          className="font-bold text-[#1d1d1d]"
-          style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: '64px', letterSpacing: '0.25em' }}
+          className="font-bold text-[#1d1d1d] text-5xl md:text-[64px]"
+          style={{ fontFamily: '"JetBrains Mono", monospace', letterSpacing: '0.25em' }}
         >
           ABOUT
         </h1>
@@ -47,9 +47,20 @@ const About = () => {
                 ))}
               </div>
             </div>
+            
+            <div className="mt-8">
+              <h2 className="text-2xl font-bold text-[#1d1d1d] mb-6">Soft Skills</h2>
+              <div className="flex flex-wrap gap-3">
+                {["Empathy", "Collaboration", "Problem-Solving", "Communication", "Attention to Detail"].map((skill, index) => (
+                  <span key={index} className="px-4 py-2 border border-gray-300 text-gray-700 font-mono rounded-sm text-sm hover:bg-gray-50 cursor-default transition-colors">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
 
             {/* Tombol Download CV & Social Links */}
-            <div className="mt-8 flex items-center gap-6">
+            <div className="mt-8 flex flex-wrap items-center gap-6">
               <a 
                 href={cvFile} 
                 download="CV_Ferry-Firmando.pdf"
@@ -80,9 +91,9 @@ const About = () => {
           </div>
         </div>
 
-        {/* Bagian Education & Experience */}
+        {/* Bagian Experience */}
         <div className="mt-24 max-w-4xl">
-          <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10" style={{ fontFamily: '"JetBrains Mono", monospace' }}>Experience & Education</h2>
+          <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10" style={{ fontFamily: '"JetBrains Mono", monospace' }}>Experience</h2>
           
           <div className="flex flex-col gap-10">
             {/* Item 1 */}
@@ -118,8 +129,15 @@ const About = () => {
                 className="mt-4 w-20 h-20 rounded-md object-contain bg-white border border-gray-200 shadow-sm"
               />
             </div>
+          </div>
+        </div>
 
-            {/* Item 2 */}
+        {/* Bagian Education */}
+        <div className="mt-16 max-w-4xl">
+          <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10" style={{ fontFamily: '"JetBrains Mono", monospace' }}>Education</h2>
+          
+          <div className="flex flex-col gap-10">
+            {/* Item 1 (Education) */}
             <div className="border-l-2 border-gray-200 pl-6 relative">
               <div className="absolute w-3.5 h-3.5 bg-gray-300 rounded-full -left-[8px] top-1.5"></div>
               <h3 className="text-xl font-bold text-gray-900">Bachelor of Computer Science</h3>

@@ -21,7 +21,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
       <div className="flex flex-col gap-4 md:w-2/3">
         {/* Header: Judul dan Tahun */}
         <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
-          <h2 className="text-3xl font-bold text-gray-900">{title}</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{title}</h2>
           <span className="text-gray-500 font-mono text-lg pt-1">
             {year}
           </span>
@@ -39,7 +39,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
         <img 
           src={imageUrl} 
           alt={title} 
-          className="w-64 h-64 object-cover bg-gray-800 rounded-sm mt-2" 
+          className="w-full md:w-64 h-56 md:h-64 object-cover bg-gray-800 rounded-sm mt-2" 
         />
       </div>
 
