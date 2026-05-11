@@ -48,7 +48,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
       <div className="flex flex-col items-start md:items-end gap-3 mt-6 md:mt-0 md:w-1/3">
         
         {/* Kotak Roles (Prioritas: warna menonjol) */}
-        <div className="flex flex-wrap gap-2 md:justify-end">
+        <div className="flex flex-wrap items-center gap-2 md:justify-end">
+          <span className="text-gray-500 text-sm font-mono mr-1">Role:</span>
           {roles.map((role, index) => (
             <span 
               key={`role-${index}`} 
@@ -60,7 +61,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
         </div>
 
         {/* Kotak Tools (Sekunder: hanya garis pinggir) */}
-        <div className="flex flex-wrap gap-2 md:justify-end">
+        <div className="flex flex-wrap items-center gap-2 md:justify-end">
+          <span className="text-gray-500 text-sm font-mono mr-1">Tools:</span>
           {tools.map((tool, index) => (
             <span 
               key={`tool-${index}`} 

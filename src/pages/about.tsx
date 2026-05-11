@@ -3,6 +3,7 @@ import profileImg from '../assets/dummy.jpg';
 import cvFile from '../assets/CV_Ferry-Firmando.pdf';
 import tsMediaLogo from '../assets/logo-ts-media-main.png';
 import cakrawalaLogo from '../assets/logo-cakrawala-v2.webp';
+import briLogo from '../assets/Logo BRI - Dianisa.com.png';
 
 const About = () => {
   return (
@@ -87,7 +88,7 @@ const About = () => {
             {/* Item 1 */}
             <div className="border-l-2 border-gray-200 pl-6 relative">
               <div className="absolute w-3.5 h-3.5 bg-[#1d1d1d] rounded-full -left-[8px] top-1.5"></div>
-              <h3 className="text-xl font-bold text-gray-900">Freelance Graphics Designer</h3>
+              <h3 className="text-xl font-bold text-gray-900">Graphics Design Intern</h3>
               <p className="text-gray-500 text-sm font-mono mt-1">TS Media • April 2024 - Present</p>
               <p className="text-gray-600 mt-3 leading-relaxed">
                 As a versatile Video Editor, Graphics Designer, Photographer, and Videographer, I have consistently delivered impactful visual content across multiple platforms. My role focused on helping social media division make content that drives engagement, strengthens brand identity, and tells compelling stories.
@@ -97,6 +98,23 @@ const About = () => {
               <img 
                 src={tsMediaLogo} 
                 alt="TS Media Logo" 
+                className="mt-4 w-20 h-20 rounded-md object-contain bg-white border border-gray-200 shadow-sm"
+              />
+            </div>
+
+            {/* Item 2 */}
+            <div className="border-l-2 border-gray-200 pl-6 relative">
+              <div className="absolute w-3.5 h-3.5 bg-gray-300 rounded-full -left-[8px] top-1.5"></div>
+              <h3 className="text-xl font-bold text-gray-900">IT Support Intern</h3>
+              <p className="text-gray-500 text-sm font-mono mt-1">Bank Rakyat Indonesia • April - June 2020</p>
+              <p className="text-gray-600 mt-3 leading-relaxed">
+                As an IT Support Intern at Bank Rakyat Indonesia, I actively contributed to ensuring system reliability by performing electrical and network cable installations, as well as conducting hardware maintenance. My role focused on maintaining stable and optimal system performance, supporting seamless operations across critical banking infrastructure.
+              </p>
+              
+              {/* Logo Perusahaan */}
+              <img 
+                src={briLogo} 
+                alt="Bank BRI Logo" 
                 className="mt-4 w-20 h-20 rounded-md object-contain bg-white border border-gray-200 shadow-sm"
               />
             </div>
