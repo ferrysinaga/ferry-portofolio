@@ -6,11 +6,11 @@ const Navbar: React.FC = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <nav className="flex justify-between items-start w-full box-border px-[120px] py-10 bg-white">
+    <nav className="flex justify-between items-start w-full box-border px-8 md:px-[120px] py-10 bg-white">
       {/* Bagian Logo */}
       <div 
-        className="text-[#1d1d1d] font-bold tracking-tight"
-        style={{ fontFamily: '"Geist", sans-serif', fontSize: '64px', lineHeight: '1' }}
+        className="text-[#1d1d1d] font-bold tracking-tight text-5xl md:text-[64px] leading-none"
+        style={{ fontFamily: '"Geist", sans-serif' }}
       >
         <Link to="/">.ffs</Link>
       </div>
