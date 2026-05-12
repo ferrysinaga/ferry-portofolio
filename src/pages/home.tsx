@@ -7,7 +7,7 @@ const Home = () => {
       
       {/* Hero Section */}
       <main className="box-border px-8 md:px-[120px] py-24 flex flex-col justify-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-[#1d1d1d] leading-tight tracking-tight">
+        <h1 className="text-5xl md:text-6xl font-bold text-[#1d1d1d] leading-tight tracking-tight animate-floating">
           Designing Logic. <br /> Coding Magic.
         </h1>
         

@@ -14,7 +14,7 @@ const About = () => {
       {/* Konten halaman About */}
       <main className="box-border px-8 md:px-[120px] py-10">
         <h1 
-          className="font-bold text-[#1d1d1d] text-5xl md:text-[64px]"
+          className="font-bold text-[#1d1d1d] text-5xl md:text-[64px] animate-floating"
           style={{ fontFamily: '"JetBrains Mono", monospace', letterSpacing: '0.25em' }}
         >
           ABOUT
