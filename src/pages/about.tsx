@@ -1,9 +1,9 @@
 import Navbar from '../components/Navbar';
 import profileImg from '../assets/dummy.jpg';
 import cvFile from '../assets/CV_Ferry-Firmando.pdf';
-import tsMediaLogo from '../assets/logo-ts-media-main.png';
-import cakrawalaLogo from '../assets/logo-cakrawala-v2.webp';
-import briLogo from '../assets/Logo BRI - Dianisa.com.png';
+import TimelineItem from '../components/TimelineItem';
+import SkillBadge from '../components/SkillBadge';
+import { experienceData, educationData, coreSkills, softSkills } from '../data/aboutData';
 
 const About = () => {
   return (
@@ -12,7 +12,7 @@ const About = () => {
       <Navbar />
 
       {/* Konten halaman About */}
-      <main className="box-border px-8 md:px-[120px] py-10">
+      <main className="box-border px-8 md:px-[120px] py-10 animate-fade-in-up">
         <h1 
           className="font-bold text-[#1d1d1d] text-5xl md:text-[64px] animate-floating drop-shadow-md"
           style={{ fontFamily: '"JetBrains Mono", monospace', letterSpacing: '0.25em' }}
@@ -40,10 +40,8 @@ const About = () => {
             <div className="mt-6">
               <h2 className="text-2xl font-bold text-[#1d1d1d] mb-6">Core Competencies & Tools</h2>
               <div className="flex flex-wrap gap-3">
-                {["UI/UX Design", "Front-End Development", "React & Next.js", "Tailwind CSS", "JavaScript", "Figma", "PHP", "Git & GitHub"].map((skill, index) => (
-                  <span key={index} className="px-4 py-2 border border-gray-300 text-gray-700 font-mono rounded-sm text-sm hover:bg-gray-50 cursor-default transition-colors">
-                    {skill}
-                  </span>
+                {coreSkills.map((skill, index) => (
+                  <SkillBadge key={index} skill={skill} />
                 ))}
               </div>
             </div>
@@ -51,10 +49,8 @@ const About = () => {
             <div className="mt-8">
               <h2 className="text-2xl font-bold text-[#1d1d1d] mb-6">Soft Skills</h2>
               <div className="flex flex-wrap gap-3">
-                {["Empathy", "Collaboration", "Problem-Solving", "Communication", "Attention to Detail"].map((skill, index) => (
-                  <span key={index} className="px-4 py-2 border border-gray-300 text-gray-700 font-mono rounded-sm text-sm hover:bg-gray-50 cursor-default transition-colors">
-                    {skill}
-                  </span>
+                {softSkills.map((skill, index) => (
+                  <SkillBadge key={index} skill={skill} />
                 ))}
               </div>
             </div>
@@ -96,63 +92,21 @@ const About = () => {
           <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10" style={{ fontFamily: '"JetBrains Mono", monospace' }}>Experience</h2>
           
           <div className="flex flex-col gap-10">
-            {/* Item 1 */}
-            <div className="border-l-2 border-gray-200 pl-6 relative">
-              <div className="absolute w-3.5 h-3.5 bg-[#1d1d1d] rounded-full -left-[8px] top-1.5"></div>
-              <h3 className="text-xl font-bold text-gray-900">Graphics Design Intern</h3>
-              <p className="text-gray-500 text-sm font-mono mt-1">TS Media • April 2024 - Present</p>
-              <p className="text-gray-600 mt-3 leading-relaxed">
-                As a versatile Video Editor, Graphics Designer, Photographer, and Videographer, I have consistently delivered impactful visual content across multiple platforms. My role focused on helping social media division make content that drives engagement, strengthens brand identity, and tells compelling stories.
-              </p>
-              
-              {/* Logo Perusahaan */}
-              <img 
-                src={tsMediaLogo} 
-                alt="TS Media Logo" 
-                className="mt-4 w-20 h-20 rounded-md object-contain bg-white border border-gray-200 shadow-sm"
-              />
-            </div>
-
-            {/* Item 2 */}
-            <div className="border-l-2 border-gray-200 pl-6 relative">
-              <div className="absolute w-3.5 h-3.5 bg-gray-300 rounded-full -left-[8px] top-1.5"></div>
-              <h3 className="text-xl font-bold text-gray-900">IT Support Intern</h3>
-              <p className="text-gray-500 text-sm font-mono mt-1">Bank Rakyat Indonesia • April - June 2020</p>
-              <p className="text-gray-600 mt-3 leading-relaxed">
-                As an IT Support Intern at Bank Rakyat Indonesia, I actively contributed to ensuring system reliability by performing electrical and network cable installations, as well as conducting hardware maintenance. My role focused on maintaining stable and optimal system performance, supporting seamless operations across critical banking infrastructure.
-              </p>
-              
-              {/* Logo Perusahaan */}
-              <img 
-                src={briLogo} 
-                alt="Bank BRI Logo" 
-                className="mt-4 w-20 h-20 rounded-md object-contain bg-white border border-gray-200 shadow-sm"
-              />
-            </div>
+            {/* 4. Kita render data experience menggunakan .map() */}
+            {experienceData.map((item, index) => (
+              <TimelineItem key={`exp-${index}`} {...item} />
+            ))}
           </div>
         </div>
 
         {/* Bagian Education */}
         <div className="mt-16 max-w-4xl">
           <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10" style={{ fontFamily: '"JetBrains Mono", monospace' }}>Education</h2>
-          
           <div className="flex flex-col gap-10">
-            {/* Item 1 (Education) */}
-            <div className="border-l-2 border-gray-200 pl-6 relative">
-              <div className="absolute w-3.5 h-3.5 bg-gray-300 rounded-full -left-[8px] top-1.5"></div>
-              <h3 className="text-xl font-bold text-gray-900">Bachelor of Computer Science</h3>
-              <p className="text-gray-500 text-sm font-mono mt-1">Cakrawala University • 2024 - Present</p>
-              <p className="text-gray-600 mt-3 leading-relaxed">
-                Currently pursuing a degree in Computer Science. Building a strong foundation in software engineering principles, algorithms, and web technologies.
-              </p>
-              
-              {/* Logo Universitas */}
-              <img 
-                src={cakrawalaLogo} 
-                alt="Cakrawala University Logo" 
-                className="mt-4 w-20 h-20 rounded-md object-contain bg-white border border-gray-200 shadow-sm"
-              />
-            </div>
+            {/* 5. Kita render data education menggunakan .map() juga */}
+            {educationData.map((item, index) => (
+              <TimelineItem key={`edu-${index}`} {...item} />
+            ))}
           </div>
         </div>
       </main>

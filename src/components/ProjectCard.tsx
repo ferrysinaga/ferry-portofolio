@@ -2,7 +2,7 @@ import React from 'react';
 
 // 1. Ini adalah "cetakan" data (Props). 
 // Kita kasih tahu TypeScript data apa saja yang wajib diisi nanti.
-interface ProjectCardProps {
+export interface ProjectCardProps {
   title: string;
   description: string;
   imageUrl: string;
