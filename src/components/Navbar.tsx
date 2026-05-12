@@ -35,11 +35,11 @@ const Navbar: React.FC = () => {
           <span className={`absolute left-0 -bottom-1 w-full h-[2px] bg-gray-500 transition-transform duration-300 origin-left ${isActive('/project') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
         </Link>
         <Link 
-          to="/contact" 
+          to="/gallery" 
           className="relative text-[16px] text-[#1d1d1d] hover:text-gray-500 transition-colors duration-200 group"
         >
-          Contact
-          <span className={`absolute left-0 -bottom-1 w-full h-[2px] bg-gray-500 transition-transform duration-300 origin-left ${isActive('/contact') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+          Gallery
+          <span className={`absolute left-0 -bottom-1 w-full h-[2px] bg-gray-500 transition-transform duration-300 origin-left ${isActive('/gallery') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
         </Link>
       </div>
     </nav>
