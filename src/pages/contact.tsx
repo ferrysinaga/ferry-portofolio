@@ -7,7 +7,7 @@ const Contact = () => {
       
       <main className="box-border px-8 md:px-[120px] py-10">
         <h1 
-          className="font-bold text-[#1d1d1d] text-5xl md:text-[64px] animate-floating"
+          className="font-bold text-[#1d1d1d] text-5xl md:text-[64px] animate-floating drop-shadow-md"
           style={{ fontFamily: '"JetBrains Mono", monospace', letterSpacing: '0.25em' }}
         >
           CONTACT
