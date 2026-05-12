@@ -1,4 +1,44 @@
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
+
+// Komponen khusus untuk efek Decrypted Text
+const DecryptedText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
+  const [displayText, setDisplayText] = useState('');
+  const [isStarted, setIsStarted] = useState(false);
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+{}:"<>?|[]~\\-\';,./';
+
+  useEffect(() => {
+    let interval: ReturnType<typeof setInterval>;
+    
+    const timeout = setTimeout(() => {
+      setIsStarted(true);
+      let iteration = 0;
+      
+      interval = setInterval(() => {
+        setDisplayText(
+          text
+            .split('')
+            .map((char, index) => {
+              if (index < iteration) return text[index];
+              if (char === ' ') return ' ';
+              return chars[Math.floor(Math.random() * chars.length)];
+            })
+            .join('')
+        );
+        if (iteration >= text.length) clearInterval(interval);
+        iteration += 1 / 3; // Mengatur kecepatan kemunculan karakter asli
+      }, 40);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeout);
+      if (interval) clearInterval(interval);
+    };
+  }, [text, delay]);
+
+  // Saat belum dimulai, pakai opacity-0 agar tinggi container (layout) tidak lompat-lompat
+  return <span>{!isStarted ? <span className="opacity-0">{text}</span> : displayText}</span>;
+};
 
 const Home = () => {
   return (
@@ -8,7 +48,8 @@ const Home = () => {
       {/* Hero Section */}
       <main className="flex-grow box-border px-8 md:px-[120px] flex flex-col justify-center pb-20 animate-fade-in-up">
         <h1 className="text-5xl md:text-6xl font-bold text-[#1d1d1d] leading-tight tracking-tight animate-floating drop-shadow-md">
-          Designing Logic. <br /> Coding Magic.
+          <DecryptedText text="Designing Logic." delay={300} /> <br />
+          <DecryptedText text="Coding Magic." delay={1200} />
         </h1>
         
         <p className="mt-6 text-lg text-gray-500 max-w-2xl leading-relaxed" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
