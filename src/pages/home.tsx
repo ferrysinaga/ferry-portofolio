@@ -48,8 +48,7 @@ const Home = () => {
       {/* Hero Section */}
       <main className="flex-grow box-border px-8 md:px-[120px] flex flex-col justify-center pb-20 animate-fade-in-up">
         <h1 className="text-5xl md:text-6xl font-bold text-[#1d1d1d] leading-tight tracking-tight animate-floating drop-shadow-md">
-          <DecryptedText text="Designing Logic." delay={300} /> <br />
-          <DecryptedText text="Coding Magic." delay={1200} />
+          <DecryptedText text="Hello, Nice To Meet You!" delay={300} />
         </h1>
         
         <p className="mt-6 text-lg text-gray-500 max-w-2xl leading-relaxed" style={{ fontFamily: '"JetBrains Mono", monospace' }}>

@@ -1,5 +1,5 @@
 import Navbar from '../components/Navbar';
-import profileImg from '../assets/dummy.jpg';
+import profileImg from '../assets/foto-profil/foto-profil-1.png';
 import cvFile from '../assets/CV_Ferry-Firmando.pdf';
 import TimelineItem from '../components/TimelineItem';
 import SkillBadge from '../components/SkillBadge';
@@ -27,9 +27,16 @@ const About = () => {
               className="text-gray-600 text-lg leading-relaxed"
               style={{ fontFamily: '"JetBrains Mono", monospace' }}
             >
-              Hello! I am a passionate UI/UX Designer and Web Developer with a strong foundation in Computer Science. I specialize in bridging the gap between aesthetic design and robust technology. My journey in the tech world has driven me to continuously learn and adapt, allowing me to craft digital experiences that are not only visually appealing but also highly intuitive and functional.
+              Hello! I am a passionate UI/UX Designer and Web Developer with a strong foundation in Computer Science. I specialize in bridging the gap between aesthetic design and robust technology.
             </p>
             
+            <p 
+              className="text-gray-600 text-lg leading-relaxed"
+              style={{ fontFamily: '"JetBrains Mono", monospace' }}
+            >
+              My journey in the tech world has driven me to continuously learn and adapt, allowing me to craft digital experiences that are not only visually appealing but also highly intuitive and functional.
+            </p>
+
             <p 
               className="text-gray-600 text-lg leading-relaxed"
               style={{ fontFamily: '"JetBrains Mono", monospace' }}
@@ -82,7 +89,7 @@ const About = () => {
             <img 
               src={profileImg} 
               alt="Ferry Profile" 
-              className="w-full max-w-[420px] object-cover bg-gray-100 rounded-sm grayscale hover:grayscale-0 transition-all duration-300"
+              className="w-full max-w-[420px] object-cover bg-gray-100 border-4 border-[#1d1d1d] shadow-[8px_8px_0px_0px_#1d1d1d] grayscale hover:grayscale-0 hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[4px_4px_0px_0px_#1d1d1d] transition-all duration-300"
             />
           </div>
         </div>
