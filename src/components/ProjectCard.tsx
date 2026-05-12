@@ -9,9 +9,11 @@ interface ProjectCardProps {
   roles: string[]; // Peran dalam proyek
   tools: string[]; // Alat atau bahasa yang digunakan
   year: string;
+  demoUrl?: string; // Tautan ke live demo (opsional)
+  githubUrl?: string; // Tautan ke repositori (opsional)
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl, roles, tools, year }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl, roles, tools, year, demoUrl, githubUrl }) => {
   return (
     // Container Utama: Pakai flexbox untuk memisahkan bagian Kiri dan Kanan. 
     // py-8 (padding atas bawah), border-b (garis bawah)
@@ -36,11 +38,26 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
         </p>
         
         {/* Gambar Thumbnail */}
-        <img 
-          src={imageUrl} 
-          alt={title} 
-          className="w-full md:w-64 h-56 md:h-64 object-cover bg-gray-800 rounded-sm mt-2" 
-        />
+        <div className="w-full md:w-64 h-56 md:h-64 mt-2 overflow-hidden rounded-sm">
+          <img 
+            src={imageUrl} 
+            alt={`Preview of ${title}`} 
+            loading="lazy"
+            className="w-full h-full object-cover bg-gray-800 hover:scale-105 transition-transform duration-500" 
+          />
+        </div>
+
+        {/* Tautan Proyek (Opsional) */}
+        {(demoUrl || githubUrl) && (
+          <div className="flex items-center gap-4 mt-2" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+            {demoUrl && (
+              <a href={demoUrl} target="_blank" rel="noreferrer" className="text-sm font-bold text-[#1d1d1d] hover:underline underline-offset-4">↗ Live Demo</a>
+            )}
+            {githubUrl && (
+              <a href={githubUrl} target="_blank" rel="noreferrer" className="text-sm font-bold text-gray-500 hover:text-[#1d1d1d] hover:underline underline-offset-4">↗ Source Code</a>
+            )}
+          </div>
+        )}
       </div>
 
       {/* --- BAGIAN KANAN: Roles dan Tools --- */}
