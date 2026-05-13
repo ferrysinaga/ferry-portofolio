@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
+import TypewriterText from '../components/TypewriterText';
 
 // Komponen khusus untuk efek Decrypted Text
 const DecryptedText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
@@ -52,7 +53,7 @@ const Home = () => {
         </h1>
         
         <p className="mt-6 text-lg text-gray-500 max-w-2xl leading-relaxed" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
-          I turn complex problems into pixel-perfect digital experiences. No fluff, just clean code and intuitive design.
+          <TypewriterText text="I turn complex problems into pixel-perfect digital experiences. No fluff, just clean code and intuitive design." delay={1200} speed={25} />
         </p>
       </main>
 

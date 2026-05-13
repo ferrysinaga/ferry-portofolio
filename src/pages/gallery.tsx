@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
+import TypewriterText from '../components/TypewriterText';
 import img1 from '../assets/gallery/img-1.jpg';
 import img2 from '../assets/gallery/img-2.jpg';
 import img3 from '../assets/gallery/img-3.jpg';
@@ -33,7 +34,7 @@ const Gallery = () => {
         </h1>
         
         <p className="mt-4 text-gray-500 text-lg max-w-2xl leading-relaxed" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
-          A showcase of my photography and visual captures. These are some moments I've collected.
+          <TypewriterText text="A showcase of my photography and visual captures. These are some moments I've collected." delay={300} speed={25} />
         </p>
 
         {/* Grid Galeri (Masonry) */}

@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar';
 import ProjectCard from '../components/ProjectCard';
 import { projectData } from '../data/projectData';
+import TypewriterText from '../components/TypewriterText';
 
 const Project = () => {
   return (
@@ -18,7 +19,7 @@ const Project = () => {
         </h1>
         
         <p className="mt-4 text-gray-500 text-lg max-w-2xl leading-relaxed" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
-          A showcase of my recent work in UI/UX Design and Web Development. Bringing ideas to life through intuitive design and robust code.
+          <TypewriterText text="A showcase of my recent work in UI/UX Design and Web Development. Bringing ideas to life through intuitive design and robust code." delay={300} speed={25} />
         </p>
 
         <div className="mt-12 flex flex-col gap-8">
