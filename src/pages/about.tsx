@@ -2,7 +2,6 @@ import Navbar from '../components/Navbar';
 import profileImg from '../assets/foto-profil/foto-profil-1.png';
 import cvFile from '../assets/CV_Ferry-Firmando.pdf';
 import TimelineItem from '../components/TimelineItem';
-import SkillBadge from '../components/SkillBadge';
 import { experienceData, educationData, coreSkills, softSkills } from '../data/aboutData';
 
 const About = () => {
@@ -45,7 +44,9 @@ const About = () => {
               <h2 className="text-2xl font-bold text-[#1d1d1d] mb-6">Core Competencies & Tools</h2>
               <div className="flex flex-wrap gap-3">
                 {coreSkills.map((skill, index) => (
-                  <SkillBadge key={index} skill={skill} />
+                  <span key={`core-${index}`} className="px-4 py-2 bg-white border-2 border-[#1d1d1d] text-[#1d1d1d] font-bold text-sm rounded-sm shadow-[3px_3px_0px_0px_#1d1d1d] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all cursor-default">
+                    {skill}
+                  </span>
                 ))}
               </div>
             </div>
@@ -54,7 +55,9 @@ const About = () => {
               <h2 className="text-2xl font-bold text-[#1d1d1d] mb-6">Soft Skills</h2>
               <div className="flex flex-wrap gap-3">
                 {softSkills.map((skill, index) => (
-                  <SkillBadge key={index} skill={skill} />
+                  <span key={`soft-${index}`} className="px-4 py-2 bg-gray-100 border-2 border-[#1d1d1d] text-[#1d1d1d] font-bold text-sm rounded-sm shadow-[3px_3px_0px_0px_#1d1d1d] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all cursor-default">
+                    {skill}
+                  </span>
                 ))}
               </div>
             </div>
