@@ -4,6 +4,9 @@ import TypewriterText from '../components/TypewriterText';
 import img1 from '../assets/gallery/img-1.jpg';
 import img2 from '../assets/gallery/img-2.jpg';
 import img3 from '../assets/gallery/img-3.jpg';
+import img4 from '../assets/gallery/img-4.jpg';
+import img5 from '../assets/gallery/img-5.jpg';
+import img6 from '../assets/gallery/img-6.jpg';
 
 const Gallery = () => {
   // Data gambar sekarang berbentuk objek dengan URL dan deskripsi
@@ -11,6 +14,9 @@ const Gallery = () => {
     { src: img1, desc: "Jakarta MRT Commute" },
     { src: img2, desc: "Blooming Plumeria" },
     { src: img3, desc: "Urban Aesthetics" },
+    { src: img4, desc: "Ancol Beach Sunset" },
+    { src: img5, desc: "Silver Spike" },
+    { src: img6, desc: "An elderly man is sleeping in the" },
   ];
 
   // State untuk menyimpan teks deskripsi yang sedang di-hover dan koordinat mouse
