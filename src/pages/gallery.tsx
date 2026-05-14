@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import TypewriterText from '../components/TypewriterText';
 import img1 from '../assets/gallery/img-1.jpg';
