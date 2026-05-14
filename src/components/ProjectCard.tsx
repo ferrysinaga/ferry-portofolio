@@ -44,7 +44,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
         {/* Header: Judul dan Tahun */}
         <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{title}</h2>
-          <span className="text-gray-500 font-mono text-lg pt-1">
+          <span className="text-gray-500 text-lg pt-1">
             {year}
           </span>
         </div>
@@ -52,7 +52,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
         {/* Deskripsi */}
         <p 
           className="text-gray-500 text-lg leading-relaxed"
-          style={{ fontFamily: '"JetBrains Mono", monospace' }}
         >
           {description}
         </p>
@@ -70,7 +69,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
           />
           {images.length > 1 && (
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 pt-12 flex justify-center items-end opacity-90 group-hover:opacity-100 transition-opacity">
-              <span className="text-white text-[11px] font-mono font-bold tracking-wider border border-white/50 px-3 py-1.5 bg-black/40 rounded-sm backdrop-blur-sm group-hover:bg-white group-hover:text-black group-hover:border-white transition-colors duration-300">
+              <span className="text-white text-[11px] font-bold tracking-wider border border-white/50 px-3 py-1.5 bg-black/40 rounded-sm backdrop-blur-sm group-hover:bg-white group-hover:text-black group-hover:border-white transition-colors duration-300">
                 CLICK FOR VIEW MORE
               </span>
             </div>
@@ -79,7 +78,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
 
         {/* Tautan Proyek (Opsional) */}
         {(demoUrl || githubUrl || figmaUrl) && (
-          <div className="flex items-center flex-wrap gap-4 mt-3" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+          <div className="flex items-center flex-wrap gap-4 mt-3">
             {figmaUrl && (
               <a href={figmaUrl} target="_blank" rel="noreferrer" className="text-sm font-bold text-[#1d1d1d] hover:text-blue-600 hover:underline underline-offset-4 transition-colors">↗ Figma Prototype</a>
             )}
@@ -99,11 +98,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
         
         {/* Kotak Roles (Prioritas: warna menonjol) */}
         <div className="flex flex-wrap items-center gap-2 md:justify-end">
-          <span className="text-gray-500 text-sm font-mono mr-1">Role:</span>
+          <span className="text-gray-500 text-sm mr-1">Role:</span>
           {roles.map((role, index) => (
             <span 
               key={`role-${index}`} 
-              className="px-3 py-1 bg-[#1d1d1d] text-white text-sm font-mono rounded-sm"
+              className="px-3 py-1 bg-[#1d1d1d] text-white text-sm rounded-sm"
             >
               {role}
             </span>
@@ -112,11 +111,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, description, imageUrl,
 
         {/* Kotak Tools (Sekunder: hanya garis pinggir) */}
         <div className="flex flex-wrap items-center gap-2 md:justify-end">
-          <span className="text-gray-500 text-sm font-mono mr-1">Tools:</span>
+          <span className="text-gray-500 text-sm mr-1">Tools:</span>
           {tools.map((tool, index) => (
             <span 
               key={`tool-${index}`} 
-              className="px-3 py-1 border border-gray-300 text-sm text-gray-700 font-mono rounded-sm"
+              className="px-3 py-1 border border-gray-300 text-sm text-gray-700 rounded-sm"
             >
               {tool}
             </span>

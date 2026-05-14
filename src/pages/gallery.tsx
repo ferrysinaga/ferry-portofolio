@@ -22,18 +22,18 @@ const Gallery = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
       <Navbar />
       
       <main className="box-border px-8 md:px-[120px] py-10 animate-fade-in-up">
         <h1 
           className="font-bold text-[#1d1d1d] text-5xl md:text-[64px] animate-floating drop-shadow-md"
-          style={{ fontFamily: '"JetBrains Mono", monospace', letterSpacing: '0.25em' }}
+          style={{ letterSpacing: '0.25em' }}
         >
           GALLERY
         </h1>
         
-        <p className="mt-4 text-gray-500 text-lg max-w-2xl leading-relaxed" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+        <p className="mt-4 text-gray-500 text-lg max-w-2xl leading-relaxed">
           <TypewriterText text="A showcase of my photography and visual captures. These are some moments I've collected." delay={300} speed={25} />
         </p>
 
@@ -61,7 +61,7 @@ const Gallery = () => {
       {/* --- CUSTOM TOOLTIP YANG MENGIKUTI KURSOR --- */}
       {hoveredDesc && (
         <div 
-          className="fixed z-50 pointer-events-none px-4 py-2 bg-black/60 backdrop-blur-md border border-white/30 text-white font-mono text-sm rounded-sm shadow-xl"
+          className="fixed z-50 pointer-events-none px-4 py-2 bg-black/60 backdrop-blur-md border border-white/30 text-white text-sm rounded-sm shadow-xl"
           style={{
             left: `${mousePos.x + 16}px`, // 16px offset agar tooltip tidak menutupi ujung kursor
             top: `${mousePos.y + 16}px`,

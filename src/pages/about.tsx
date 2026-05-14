@@ -7,7 +7,7 @@ import { experienceData, educationData, coreSkills, softSkills } from '../data/a
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
       {/* Memanggil komponen Navbar */}
       <Navbar />
 
@@ -15,7 +15,7 @@ const About = () => {
       <main className="box-border px-8 md:px-[120px] py-10 animate-fade-in-up">
         <h1 
           className="font-bold text-[#1d1d1d] text-5xl md:text-[64px] animate-floating drop-shadow-md"
-          style={{ fontFamily: '"JetBrains Mono", monospace', letterSpacing: '0.25em' }}
+          style={{ letterSpacing: '0.25em' }}
         >
           ABOUT
         </h1>
@@ -25,21 +25,18 @@ const About = () => {
           <div className="flex flex-col gap-8 md:w-3/5 max-w-3xl">
             <p 
               className="text-gray-600 text-lg leading-relaxed"
-              style={{ fontFamily: '"JetBrains Mono", monospace' }}
             >
               Hello! I am a passionate UI/UX Designer and Web Developer with a strong foundation in Computer Science. I specialize in bridging the gap between aesthetic design and robust technology.
             </p>
             
             <p 
               className="text-gray-600 text-lg leading-relaxed"
-              style={{ fontFamily: '"JetBrains Mono", monospace' }}
             >
               My journey in the tech world has driven me to continuously learn and adapt, allowing me to craft digital experiences that are not only visually appealing but also highly intuitive and functional.
             </p>
 
             <p 
               className="text-gray-600 text-lg leading-relaxed"
-              style={{ fontFamily: '"JetBrains Mono", monospace' }}
             >
               Throughout my academic and professional projects, I have developed a keen eye for user-centric design and a logical approach to problem-solving. Whether it is designing a seamless mobile application interface in Figma or building a responsive front-end using React and Tailwind CSS, I thrive on turning complex problems into elegant, user-friendly solutions.
             </p>
@@ -67,8 +64,7 @@ const About = () => {
               <a 
                 href={cvFile} 
                 download="CV_Ferry-Firmando.pdf"
-                className="inline-block px-8 py-3 bg-[#1d1d1d] text-white font-bold rounded-sm hover:bg-gray-800 transition-colors duration-300"
-                style={{ fontFamily: '"JetBrains Mono", monospace' }}
+                className="inline-block px-8 py-3 bg-[#1d1d1d] text-white font-bold rounded-sm border border-[#1d1d1d] hover:bg-transparent hover:text-[#1d1d1d] transition-colors duration-300"
               >
                 Download CV
               </a>
@@ -96,7 +92,7 @@ const About = () => {
 
         {/* Bagian Experience */}
         <div className="mt-24 max-w-4xl">
-          <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10" style={{ fontFamily: '"JetBrains Mono", monospace' }}>Experience</h2>
+          <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10">Experience</h2>
           
           <div className="flex flex-col gap-10">
             {/* 4. Kita render data experience menggunakan .map() */}
@@ -108,7 +104,7 @@ const About = () => {
 
         {/* Bagian Education */}
         <div className="mt-16 max-w-4xl">
-          <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10" style={{ fontFamily: '"JetBrains Mono", monospace' }}>Education</h2>
+          <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10">Education</h2>
           <div className="flex flex-col gap-10">
             {/* 5. Kita render data education menggunakan .map() juga */}
             {educationData.map((item, index) => (

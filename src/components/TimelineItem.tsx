@@ -15,7 +15,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({ title, subtitle, descriptio
     {/* Titik pada timeline, warnanya akan berbeda jika isCurrent bernilai true */}
     <div className={`absolute w-3.5 h-3.5 ${isCurrent ? 'bg-[#1d1d1d]' : 'bg-gray-300'} rounded-full -left-[8px] top-1.5`}></div>
     <h3 className="text-xl font-bold text-gray-900">{title}</h3>
-    <p className="text-gray-500 text-sm font-mono mt-1">{subtitle}</p>
+    <p className="text-gray-500 text-sm mt-1">{subtitle}</p>
     <p className="text-gray-600 mt-3 leading-relaxed">{description}</p>
     <img 
       src={logo} 

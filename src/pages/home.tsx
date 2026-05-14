@@ -43,7 +43,7 @@ const DecryptedText = ({ text, delay = 0 }: { text: string; delay?: number }) =>
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white flex flex-col" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
       <Navbar />
       
       {/* Hero Section */}
@@ -52,7 +52,7 @@ const Home = () => {
           <DecryptedText text="Hello, Nice To Meet You!" delay={300} />
         </h1>
         
-        <p className="mt-6 text-lg text-gray-500 max-w-2xl leading-relaxed" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+        <p className="mt-6 text-lg text-gray-500 max-w-2xl leading-relaxed">
           <TypewriterText text="I turn complex problems into pixel-perfect digital experiences. No fluff, just clean code and intuitive design." delay={1200} speed={25} />
         </p>
       </main>
