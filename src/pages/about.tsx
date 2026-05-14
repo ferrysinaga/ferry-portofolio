@@ -2,7 +2,7 @@ import Navbar from '../components/Navbar';
 import profileImg from '../assets/foto-profil/foto-profil-1.png';
 import cvFile from '../assets/CV_Ferry-Firmando.pdf';
 import TimelineItem from '../components/TimelineItem';
-import { experienceData, educationData, coreSkills, interests } from '../data/aboutData';
+import { experienceData, educationData, tools, interests } from '../data/aboutData';
 
 const About = () => {
   return (
@@ -41,11 +41,16 @@ const About = () => {
             </p>
 
             <div className="mt-6">
-              <h2 className="text-2xl font-bold text-[#1d1d1d] mb-6">Core Competencies & Tools</h2>
-              <div className="flex flex-wrap gap-3">
-                {coreSkills.map((skill, index) => (
-                  <span key={`core-${index}`} className="px-4 py-2 bg-white border-2 border-[#1d1d1d] text-[#1d1d1d] font-bold text-sm rounded-sm shadow-[3px_3px_0px_0px_#1d1d1d] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all cursor-default">
-                    {skill}
+              <h2 className="text-2xl font-bold text-[#1d1d1d] mb-6">Tools</h2>
+              <div className="flex flex-wrap gap-2 md:gap-3">
+                {tools.map((tool, index) => (
+                  <span key={`tool-${index}`} className="group flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-white border-2 border-[#1d1d1d] text-[#1d1d1d] font-bold text-xs md:text-sm rounded-sm shadow-[2px_2px_0px_0px_#1d1d1d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all cursor-default">
+                    {typeof tool.icon === 'string' ? (
+                      <img src={tool.icon} alt={tool.name} className="w-4 h-4 md:w-5 md:h-5 object-contain" />
+                    ) : (
+                      tool.icon
+                    )}
+                    {tool.name}
                   </span>
                 ))}
               </div>
@@ -53,9 +58,9 @@ const About = () => {
             
             <div className="mt-8">
               <h2 className="text-2xl font-bold text-[#1d1d1d] mb-6">Interests & Hobbies</h2>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 md:gap-3">
                 {interests.map((interest, index) => (
-                  <span key={`interest-${index}`} className="px-4 py-2 bg-gray-100 border-2 border-[#1d1d1d] text-[#1d1d1d] font-bold text-sm rounded-sm shadow-[3px_3px_0px_0px_#1d1d1d] hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none transition-all cursor-default">
+                  <span key={`interest-${index}`} className="px-3 py-1.5 md:px-4 md:py-2 bg-gray-100 border-2 border-[#1d1d1d] text-[#1d1d1d] font-bold text-xs md:text-sm rounded-sm shadow-[2px_2px_0px_0px_#1d1d1d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all cursor-default">
                     {interest}
                   </span>
                 ))}

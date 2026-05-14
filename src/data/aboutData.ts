@@ -2,6 +2,12 @@ import tsMediaLogo from '../assets/logo-ts-media-main.png';
 import cakrawalaLogo from '../assets/logo-cakrawala-v2.webp';
 import briLogo from '../assets/Logo BRI - Dianisa.com.png';
 import type { TimelineItemProps } from '../components/TimelineItem';
+import figmaIcon from '../assets/svg/figma.svg';
+import notionIcon from '../assets/svg/notion.svg';
+import vsCodeIcon from '../assets/svg/vscode.svg';
+import githubIcon from '../assets/svg/github.svg';
+import tailwindIcon from '../assets/svg/tailwind.svg';
+import gitIcon from '../assets/svg/git.svg';
 
 export const experienceData: TimelineItemProps[] = [
   {
@@ -32,9 +38,13 @@ export const educationData: TimelineItemProps[] = [
   }
 ];
 
-export const coreSkills: string[] = [
-  "UI/UX Design", "Front-End Development", "React & Next.js", 
-  "Tailwind CSS", "JavaScript", "Figma", "PHP", "Git & GitHub"
+export const tools = [
+  { name: "Figma", icon: figmaIcon },
+  { name: "Notion", icon: notionIcon },
+  { name: "VS Code", icon: vsCodeIcon },
+  { name: "Git & GitHub", icon: githubIcon },
+  { name: "Tailwind CSS", icon: tailwindIcon },
+  { name: "Git", icon: gitIcon }
 ];
 
 export const interests: string[] = [
