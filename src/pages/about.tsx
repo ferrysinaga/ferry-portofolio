@@ -45,11 +45,7 @@ const About = () => {
               <div className="flex flex-wrap gap-2 md:gap-3">
                 {tools.map((tool, index) => (
                   <span key={`tool-${index}`} className="group flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-white border-2 border-[#1d1d1d] text-[#1d1d1d] font-bold text-xs md:text-sm rounded-sm shadow-[2px_2px_0px_0px_#1d1d1d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all cursor-default">
-                    {typeof tool.icon === 'string' ? (
-                      <img src={tool.icon} alt={tool.name} className="w-4 h-4 md:w-5 md:h-5 object-contain" />
-                    ) : (
-                      tool.icon
-                    )}
+                    <img src={tool.icon} alt={tool.name} className="w-4 h-4 md:w-5 md:h-5 object-contain" />
                     {tool.name}
                   </span>
                 ))}
