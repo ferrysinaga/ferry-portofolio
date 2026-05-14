@@ -37,7 +37,7 @@ export const coreSkills: string[] = [
   "Tailwind CSS", "JavaScript", "Figma", "PHP", "Git & GitHub"
 ];
 
-export const softSkills: string[] = [
-  "Empathy", "Collaboration", "Problem-Solving", 
-  "Communication", "Attention to Detail"
+export const interests: string[] = [
+  "📷 Photography", "📹 Videography", "🚗 Automotive", 
+  "⚽ Football", "🎮 Gaming", "🎵 Music", "🏸 Badminton", "and others"
 ];
