@@ -1,5 +1,5 @@
 import Navbar from '../components/Navbar';
-import ProjectCard from '../components/ProjectCard';
+import ProjectAccordion from '../components/ProjectAccordion';
 import { projectData } from '../data/projectData';
 import TypewriterText from '../components/TypewriterText';
 
@@ -22,10 +22,8 @@ const Project = () => {
           <TypewriterText text="A showcase of my recent work in UI/UX Design and Web Development. Bringing ideas to life through intuitive design and robust code." delay={300} speed={25} />
         </p>
 
-        <div className="mt-12 flex flex-col gap-8">
-          {projectData.map((project, index) => (
-            <ProjectCard key={index} {...project} />
-          ))}
+        <div className="mt-12 w-full pb-10">
+          <ProjectAccordion projects={projectData} />
         </div>
       </main>
     </div>

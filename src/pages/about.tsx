@@ -1,8 +1,9 @@
 import Navbar from '../components/Navbar';
 import profileImg from '../assets/foto-profil/foto-profil-1.png';
 import cvFile from '../assets/CV_Ferry-Firmando.pdf';
-import TimelineItem from '../components/TimelineItem';
+import TimelineAccordion from '../components/TimelineAccordion';
 import { experienceData, educationData, tools, interests } from '../data/aboutData';
+import CertificateAccordion from '../components/CertificateAccordion';
 
 const About = () => {
   return (
@@ -95,26 +96,21 @@ const About = () => {
         </div>
 
         {/* Bagian Experience */}
-        <div className="mt-24 max-w-4xl">
+        <div className="mt-24 w-full">
           <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10">Experience</h2>
-          
-          <div className="flex flex-col gap-10">
-            {/* 4. Kita render data experience menggunakan .map() */}
-            {experienceData.map((item, index) => (
-              <TimelineItem key={`exp-${index}`} {...item} />
-            ))}
-          </div>
+          <TimelineAccordion items={experienceData} />
         </div>
 
         {/* Bagian Education */}
-        <div className="mt-16 max-w-4xl">
+        <div className="mt-16 w-full">
           <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10">Education</h2>
-          <div className="flex flex-col gap-10">
-            {/* 5. Kita render data education menggunakan .map() juga */}
-            {educationData.map((item, index) => (
-              <TimelineItem key={`edu-${index}`} {...item} />
-            ))}
-          </div>
+          <TimelineAccordion items={educationData} />
+        </div>
+
+        {/* Bagian Certificates dengan Accordion */}
+        <div className="mt-16 w-full pb-10">
+          <h2 className="text-2xl font-bold text-[#1d1d1d] mb-10">Certificates</h2>
+          <CertificateAccordion />
         </div>
       </main>
     </div>

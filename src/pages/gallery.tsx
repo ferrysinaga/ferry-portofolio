@@ -65,7 +65,7 @@ const Gallery = () => {
                 src={item.src} 
                 alt={item.desc} 
                 loading="lazy"
-                className="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                className="w-full h-auto object-cover"
               />
             </div>
           ))}

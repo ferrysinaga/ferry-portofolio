@@ -1,11 +1,11 @@
-import type { ProjectCardProps } from '../components/ProjectCard';
+import type { ProjectItemProps } from '../components/ProjectAccordion';
 // Impor keempat gambar Mie Gacoan
 import gacoan1 from '../assets/project1-migacoan/1.png';
 import gacoan2 from '../assets/project1-migacoan/2.png';
 import gacoan3 from '../assets/project1-migacoan/3.png';
 import gacoan4 from '../assets/project1-migacoan/4.png';
 
-export const projectData: ProjectCardProps[] = [
+export const projectData: ProjectItemProps[] = [
   {
     title: "Mie Gacoan Mobile App Design",
     description: "This design was created based on the problem we identified, where Mie Gacoan did not yet have an application that allowed direct ordering via mobile devices and still relied on cashier transactions.",
