@@ -4,6 +4,9 @@ import gacoan1 from '../assets/project1-migacoan/1.png';
 import gacoan2 from '../assets/project1-migacoan/2.png';
 import gacoan3 from '../assets/project1-migacoan/3.png';
 import gacoan4 from '../assets/project1-migacoan/4.png';
+// Impor gambar Cinephile Zone
+import cinephilezone1 from '../assets/project-cinephilezone/cinephilezone1.png';
+import cinephilezone2 from '../assets/project-cinephilezone/cinephilezone2.png';
 
 export const projectData: ProjectItemProps[] = [
   {
@@ -45,5 +48,15 @@ export const projectData: ProjectItemProps[] = [
     year: "2024",
     figmaUrl: "https://www.figma.com/", // Ganti dengan link Figma Anda
     githubUrl: "https://github.com/" // Ganti dengan link repository Github Anda
+  },
+  {
+    title: "CINEPHILE ZONE",
+    description: "In short, it combines ticket booking and movie information into a single app, making the movie‑going experience more convenient and well‑informed.",
+    imageUrl: [cinephilezone1, cinephilezone2],
+    roles: ["UI/UX Design", "Front-End"],
+    tools: ["Flutter", "Git", "Github", "Figma"],
+    year: "2026",
+    figmaUrl: "https://www.figma.com/design/xn3NbPyGEf4XQKCWA0YZjt/CINEPHILE-ZONE?node-id=21-2&t=TF4xvMEl0G1qY823-1",
+    githubUrl: "https://github.com/Big-com18/uas_project_mobile"
   }
 ];
