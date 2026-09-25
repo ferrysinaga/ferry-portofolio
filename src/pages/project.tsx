@@ -2,10 +2,18 @@ import Navbar from '../components/Navbar';
 import ProjectAccordion from '../components/ProjectAccordion';
 import { projectData } from '../data/projectData';
 import TypewriterText from '../components/TypewriterText';
+import { motion } from 'framer-motion'; // 👈 IMPORT FRAMER MOTION
 
 const Project = () => {
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+    // 👇 UBAH JADI motion.div
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="min-h-screen bg-white" 
+      style={{ fontFamily: '"JetBrains Mono", monospace' }}
+    >
       {/* Memanggil komponen Navbar */}
       <Navbar />
 
@@ -26,7 +34,7 @@ const Project = () => {
           <ProjectAccordion projects={projectData} />
         </div>
       </main>
-    </div>
+    </motion.div> // 👈 TUTUPNYA JUGA BERUBAH
   );
 };
 

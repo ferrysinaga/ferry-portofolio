@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import TypewriterText from '../components/TypewriterText';
+import { motion } from 'framer-motion'; // 👈 IMPORT FRAMER MOTION
 import img1 from '../assets/gallery/img-1.jpg';
 import img2 from '../assets/gallery/img-2.jpg';
 import img3 from '../assets/gallery/img-3.jpg';
@@ -36,7 +37,14 @@ const Gallery = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+    // 👇 UBAH JADI motion.div
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="min-h-screen bg-white relative" 
+      style={{ fontFamily: '"JetBrains Mono", monospace' }}
+    >
       <Navbar />
       
       <main className="box-border px-8 md:px-[120px] py-10 animate-fade-in-up">
@@ -61,11 +69,12 @@ const Gallery = () => {
               onMouseLeave={() => setHoveredDesc(null)}
               onMouseMove={handleMouseMove}
             >
+              {/* Tambahan efek hover scale ringan pada gambar */}
               <img 
                 src={item.src} 
                 alt={item.desc} 
                 loading="lazy"
-                className="w-full h-auto object-cover"
+                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </div>
           ))}
@@ -77,14 +86,14 @@ const Gallery = () => {
         <div 
           className="fixed z-50 pointer-events-none px-4 py-2 bg-black/60 backdrop-blur-md border border-white/30 text-white text-sm rounded-sm shadow-xl"
           style={{
-            left: `${mousePos.x + 16}px`, // 16px offset agar tooltip tidak menutupi ujung kursor
+            left: `${mousePos.x + 16}px`, 
             top: `${mousePos.y + 16}px`,
           }}
         >
           {hoveredDesc}
         </div>
       )}
-    </div>
+    </motion.div> // 👈 TUTUPNYA JUGA BERUBAH
   );
 };
 

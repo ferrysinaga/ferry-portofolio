@@ -4,10 +4,18 @@ import cvFile from '../assets/CV_Ferry-Firmando.pdf';
 import TimelineAccordion from '../components/TimelineAccordion';
 import { experienceData, educationData, tools, interests } from '../data/aboutData';
 import CertificateAccordion from '../components/CertificateAccordion';
+import { motion } from 'framer-motion'; // 👈 TAMBAHAN: Import Framer Motion
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-white" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+    // 👇 UBAH: div diganti dengan motion.div beserta properti animasinya
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="min-h-screen bg-white" 
+      style={{ fontFamily: '"JetBrains Mono", monospace' }}
+    >
       {/* Memanggil komponen Navbar */}
       <Navbar />
 
@@ -113,7 +121,7 @@ const About = () => {
           <CertificateAccordion />
         </div>
       </main>
-    </div>
+    </motion.div> // 👈 TUTUPNYA BERUBAH JADI motion.div
   );
 };
 
