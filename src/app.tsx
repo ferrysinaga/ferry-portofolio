@@ -3,13 +3,14 @@ import Home from './pages/home';
 import Project from './pages/project';
 import About from './pages/about';
 import Gallery from './pages/gallery';
+import Admin from './pages/admin'; // 👈 KITA IMPORT HALAMAN ADMIN
 import SplashScreen from './components/SplashScreen';
-import CustomCursor from './components/CustomCursor'; // 👈 IMPORT INI
+import CustomCursor from './components/CustomCursor';
 
 function App() {
   return (
     <>
-      <CustomCursor /> {/* 👈 PANGGIL DI SINI */}
+      <CustomCursor />
       <SplashScreen />
       
       <Router>
@@ -18,6 +19,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/project" element={<Project />} />
           <Route path="/gallery" element={<Gallery />} />
+          
+          {/* 👇 KITA DAFTARKAN JALUR /admin DI SINI */}
+          <Route path="/admin" element={<Admin />} /> 
         </Routes>
       </Router>
     </>
