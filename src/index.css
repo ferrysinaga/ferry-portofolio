@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+*{
+  cursor: none !important;
+}
+
 @layer utilities {
   @keyframes floating {
     0%, 100% {

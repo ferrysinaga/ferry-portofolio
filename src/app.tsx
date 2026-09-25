@@ -4,11 +4,12 @@ import Project from './pages/project';
 import About from './pages/about';
 import Gallery from './pages/gallery';
 import SplashScreen from './components/SplashScreen';
+import CustomCursor from './components/CustomCursor'; // 👈 IMPORT INI
 
 function App() {
   return (
     <>
-      {/* Splash Screen dipanggil di luar Router agar menutupi seluruh layar */}
+      <CustomCursor /> {/* 👈 PANGGIL DI SINI */}
       <SplashScreen />
       
       <Router>
