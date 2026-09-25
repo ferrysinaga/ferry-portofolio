@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import TypewriterText from '../components/TypewriterText';
-import { motion } from 'framer-motion'; // 👈 KITA IMPORT FRAMER MOTION DI SINI
+import { motion } from 'framer-motion'; 
+import GuestbookWidget from '../components/GuestbookWidget'; // 👈 IMPORT GUESTBOOK DI SINI
 
 // Komponen khusus untuk efek Decrypted Text
 const DecryptedText = ({ text, delay = 0 }: { text: string; delay?: number }) => {
@@ -43,18 +44,17 @@ const DecryptedText = ({ text, delay = 0 }: { text: string; delay?: number }) =>
 
 const Home = () => {
   return (
-    // 👇 DIV BIASA KITA UBAH JADI MOTION.DIV DENGAN ANIMASI
     <motion.div 
-      initial={{ opacity: 0, y: 20 }} // Posisi awal: Transparan & agak ke bawah
-      animate={{ opacity: 1, y: 0 }}  // Posisi akhir: Jelas & di posisi normal
-      transition={{ duration: 0.6, ease: "easeOut" }} // Durasi 0.6 detik yang sangat smooth
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }}  
+      transition={{ duration: 0.6, ease: "easeOut" }} 
       className="min-h-screen bg-white flex flex-col" 
       style={{ fontFamily: '"JetBrains Mono", monospace' }}
     >
       <Navbar />
       
-      {/* Hero Section */}
-      <main className="flex-grow box-border px-8 md:px-[120px] flex flex-col justify-center pb-20 animate-fade-in-up">
+      {/* Hero Section & Guestbook */}
+      <main className="flex-grow box-border px-8 md:px-[120px] flex flex-col justify-center pt-20 pb-20 animate-fade-in-up">
         <h1 className="text-5xl md:text-6xl font-bold text-[#1d1d1d] leading-tight tracking-tight animate-floating drop-shadow-md">
           <DecryptedText text="Hello, Nice To Meet You!" delay={300} />
         </h1>
@@ -62,6 +62,9 @@ const Home = () => {
         <p className="mt-6 text-lg text-gray-500 max-w-2xl leading-relaxed">
           <TypewriterText text="I turn complex problems into pixel-perfect digital experiences. No fluff, just clean code and intuitive design." delay={1200} speed={25} />
         </p>
+
+        {/* 👇 Guestbook dipanggil di DALAM <main> agar lebarnya sejajar dengan teks Hero */}
+        <GuestbookWidget />
       </main>
 
       {/* Social Links Footer */}
@@ -76,7 +79,7 @@ const Home = () => {
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
         </a>
       </div>
-    </motion.div> // 👈 TUTUPNYA JUGA BERUBAH JADI motion.div
+    </motion.div> 
   );
 };
 
