@@ -1,43 +1,53 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import TypewriterText from '../components/TypewriterText';
-import { motion } from 'framer-motion'; // 👈 IMPORT FRAMER MOTION
-import img1 from '../assets/gallery/img-1.jpg';
-import img2 from '../assets/gallery/img-2.jpg';
-import img3 from '../assets/gallery/img-3.jpg';
-import img4 from '../assets/gallery/img-4.jpg';
-import img5 from '../assets/gallery/img-5.jpg';
-import img6 from '../assets/gallery/img-6.jpg';
-import img7 from '../assets/gallery/img-7.jpg';
-import img8 from '../assets/gallery/img-8.jpg';
-import img9 from '../assets/gallery/img-9.jpg';
-import img10 from '../assets/gallery/img-10.jpg';
+import { motion } from 'framer-motion'; 
+
+// 👇 KITA IMPORT FILE SUPABASE ANDA
+import { supabase } from '../../supabaseClient'; 
+// Asumsi: supabaseClient.ts ada di luar folder src (di root folder)
+// Jika supabaseClient.ts ada di DALAM folder src, ubah menjadi: '../supabaseClient'
 
 const Gallery = () => {
-  // Data gambar sekarang berbentuk objek dengan URL dan deskripsi
-  const dummyPhotos = [
-    { src: img1, desc: "Jakarta MRT Commute" },
-    { src: img2, desc: "Blooming Plumeria" },
-    { src: img3, desc: "Urban Aesthetics" },
-    { src: img4, desc: "Ancol Beach Sunset" },
-    { src: img5, desc: "Silver Spike" },
-    { src: img6, desc: "An elderly man is sleeping in the afternoon." },
-    { src: img7, desc: "Softball View" },
-    { src: img8, desc: "A Mujair Cat" },
-    { src: img9, desc: "Bandung morning" },
-    { src: img10, desc: "What a view" }
-  ];
+  // 1. State untuk menyimpan data dari database Supabase
+  const [photos, setPhotos] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // State untuk menyimpan teks deskripsi yang sedang di-hover dan koordinat mouse
+  // State untuk menyimpan teks deskripsi (Tooltip)
   const [hoveredDesc, setHoveredDesc] = useState<string | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  // 2. Mengambil data dari Supabase secara otomatis saat halaman dibuka
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        // Mengambil semua data dari tabel 'gallery', diurutkan dari yang terbaru
+        const { data, error } = await supabase
+          .from('gallery')
+          .select('*')
+          .order('id', { ascending: false }); 
+        
+        if (error) {
+          console.error("Error fetching dari Supabase:", error);
+        } else if (data) {
+          setPhotos(data); // Memasukkan data ke state
+        }
+      } catch (err) {
+        console.error("Terjadi kesalahan:", err);
+      } finally {
+        // Matikan animasi loading setelah data selesai ditarik (atau gagal)
+        setIsLoading(false);
+      }
+    };
+
+    fetchGallery();
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     setMousePos({ x: e.clientX, y: e.clientY });
   };
 
   return (
-    // 👇 UBAH JADI motion.div
     <motion.div 
       initial={{ opacity: 0, y: 20 }} 
       animate={{ opacity: 1, y: 0 }} 
@@ -59,26 +69,36 @@ const Gallery = () => {
           <TypewriterText text="A showcase of my photography and visual captures. These are some moments I've collected." delay={300} speed={25} />
         </p>
 
-        {/* Grid Galeri (Masonry) */}
-        <div className="mt-12 columns-1 sm:columns-2 md:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6">
-          {dummyPhotos.map((item, index) => (
-            <div 
-              key={index} 
-              className="relative overflow-hidden rounded-sm group cursor-pointer bg-gray-100 break-inside-avoid"
-              onMouseEnter={() => setHoveredDesc(item.desc)}
-              onMouseLeave={() => setHoveredDesc(null)}
-              onMouseMove={handleMouseMove}
-            >
-              {/* Tambahan efek hover scale ringan pada gambar */}
-              <img 
-                src={item.src} 
-                alt={item.desc} 
-                loading="lazy"
-                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-          ))}
-        </div>
+        {/* 3. Tampilkan Loading ala Terminal jika data masih ditarik */}
+        {isLoading ? (
+          <div className="mt-20 flex justify-center py-10">
+             <div className="text-[#1d1d1d] font-bold text-xl animate-pulse flex items-center">
+               FETCHING_DATA_FROM_SUPABASE <span className="ml-1 text-2xl">...</span>
+             </div>
+          </div>
+        ) : (
+          /* Grid Galeri akan muncul otomatis sesuai jumlah baris di Database Anda */
+          <div className="mt-12 columns-1 sm:columns-2 md:columns-3 gap-4 md:gap-6 space-y-4 md:space-y-6">
+            {photos.map((item) => (
+              <div 
+                key={item.id} 
+                className="relative overflow-hidden rounded-sm group cursor-pointer bg-gray-100 break-inside-avoid"
+                // Asumsi nama kolom di Supabase adalah 'description'
+                onMouseEnter={() => setHoveredDesc(item.description)}
+                onMouseLeave={() => setHoveredDesc(null)}
+                onMouseMove={handleMouseMove}
+              >
+                <img 
+                  // Asumsi nama kolom di Supabase adalah 'image_url'
+                  src={item.image_url} 
+                  alt={item.description} 
+                  loading="lazy"
+                  className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </main>
 
       {/* --- CUSTOM TOOLTIP YANG MENGIKUTI KURSOR --- */}
@@ -93,7 +113,7 @@ const Gallery = () => {
           {hoveredDesc}
         </div>
       )}
-    </motion.div> // 👈 TUTUPNYA JUGA BERUBAH
+    </motion.div>
   );
 };
 
