@@ -113,8 +113,8 @@ const Gallery = () => {
                 {/* --- TOMBOL LIKE (Muncul saat di-hover) --- */}
                 <button 
                   onClick={(e) => handleLike(e, item.id, item.likes || 0)}
-                  // 👇 Diperbesar: padding menjadi px-4 py-2, teks menjadi text-sm, dan ditambah efek hover:scale-105
-                  className="absolute bottom-4 right-4 z-10 flex items-center gap-2.5 px-4 py-2 bg-black/60 hover:bg-black/90 backdrop-blur-md rounded-full text-sm font-mono text-white transition-all opacity-0 group-hover:opacity-100 group-hover:scale-105 active:scale-95 shadow-lg border border-white/10"
+                  // 👇 PERBAIKAN: Tambahkan opacity-100 untuk mobile, dan md:opacity-0 untuk desktop
+                  className="absolute bottom-4 right-4 z-10 flex items-center gap-2.5 px-4 py-2 bg-black/60 hover:bg-black/90 backdrop-blur-md rounded-full text-sm font-mono text-white transition-all shadow-lg border border-white/10 opacity-100 md:opacity-0 md:group-hover:opacity-100 hover:scale-105 active:scale-95"
                 >
                   <span className={`transition-colors text-base ${likedPhotos.has(item.id) ? 'text-red-500' : 'text-gray-300'}`}>
                     {likedPhotos.has(item.id) ? '❤️' : '🤍'}
