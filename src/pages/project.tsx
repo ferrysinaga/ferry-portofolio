@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import ProjectAccordion from '../components/ProjectAccordion';
 import type { ProjectItemProps } from '../components/ProjectAccordion';
 import TypewriterText from '../components/TypewriterText';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { supabase } from '../../supabaseClient';
 
-const fadeUpVariant = {
+const fadeUpVariant: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
@@ -53,9 +53,9 @@ const Project = () => {
           }));
           setProjects(formattedProjects);
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error('Error fetching projects:', err);
-        setError(err.message ?? 'Gagal memuat data project.');
+        setError(err instanceof Error ? err.message : 'Gagal memuat data project.');
       } finally {
         setLoading(false);
       }

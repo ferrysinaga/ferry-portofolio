@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import TypewriterText from '../components/TypewriterText';
-import { motion, AnimatePresence } from 'framer-motion'; 
+import { motion, AnimatePresence, type Variants } from 'framer-motion'; 
 import ViewCounter from '../components/ViewCounter'; 
 import { supabase } from '../../supabaseClient'; 
 
@@ -44,7 +44,7 @@ interface StickyNote {
   created_at?: string; 
 }
 
-const fadeUpVariant = {
+const fadeUpVariant: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
@@ -55,6 +55,14 @@ const staggerContainer = {
     opacity: 1,
     transition: { staggerChildren: 0.15 }
   }
+};
+
+const getNoteRotation = (id: string) => {
+  let hash = 0;
+  for (const character of id) {
+    hash = (hash * 31 + character.charCodeAt(0)) | 0;
+  }
+  return (Math.abs(hash) % 9) - 4;
 };
 
 const Home = () => {
@@ -73,11 +81,15 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    fetchNotes();
+useEffect(() => {
+     const initFetch = async () => {
+       await fetchNotes();
+     };
+     initFetch();
 
-    const channel = supabase
-      .channel('realtime_notes')
+     const channel = supabase
+       .channel('realtime_notes')
+       // ... lanjutan kode
       .on('postgres_changes', { event: '*', schema: 'public', table: 'spatial_notes' }, () => {
         fetchNotes();
       })
@@ -252,7 +264,7 @@ const Home = () => {
             drag 
             dragMomentum={false}
             onDragEnd={() => handleDragEnd(note.id)}
-            initial={{ scale: 0, rotate: Math.random() * 8 - 4 }} 
+            initial={{ scale: 0, rotate: getNoteRotation(note.id) }} 
             animate={{ scale: 1 }}
             exit={{ scale: 0, opacity: 0 }} 
             // Shadow abu-abu agar notes hitam tetap menonjol di background putih
