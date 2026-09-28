@@ -1,8 +1,9 @@
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import ProjectAccordion from '../components/ProjectAccordion';
-import { projectData } from '../data/projectData';
 import TypewriterText from '../components/TypewriterText';
 import { motion } from 'framer-motion';
+import { supabase } from '../../supabaseClient';
 
 // --- ANIMATION VARIANTS ---
 const fadeUpVariant = {
@@ -19,6 +20,31 @@ const staggerContainer = {
 };
 
 const Project = () => {
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const { data, error } = await supabase
+        .from('projects')
+        .select('*')
+        .order('id', { ascending: false }); // Memunculkan project terbaru paling atas
+        
+      if (data) {
+        // Map data sebagai berjaga-jaga menyesuaikan properti yang diminta ProjectAccordion
+        const formattedProjects = data.map((item) => ({
+          ...item,
+          image: item.image_url, 
+          img: item.image_url    
+        }));
+        setProjects(formattedProjects);
+      }
+      setLoading(false);
+    };
+
+    fetchProjects();
+  }, []);
+
   return (
     <motion.div 
       initial="hidden" 
@@ -79,7 +105,13 @@ const Project = () => {
           </motion.div>
 
           <motion.div variants={fadeUpVariant} className="w-full">
-            <ProjectAccordion projects={projectData} />
+            {loading ? (
+              <p className="text-[#1d1d1d] font-bold animate-pulse text-lg py-10">Mengambil data project...</p>
+            ) : projects.length > 0 ? (
+              <ProjectAccordion projects={projects} />
+            ) : (
+              <p className="text-gray-500 italic py-10">Belum ada project. Tambahkan project melalui Admin Dashboard.</p>
+            )}
           </motion.div>
         </motion.div>
 
