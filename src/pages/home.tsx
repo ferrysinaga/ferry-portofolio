@@ -3,11 +3,11 @@ import TypewriterText from '../components/TypewriterText';
 import ViewCounter from '../components/ViewCounter'; 
 import DecryptedText from '../components/DecryptedText';
 import StickyNoteItem from '../components/StickyNoteItem';
+import SnakeBackground from '../components/SnakeBackground'; 
 import { useStickyNotes } from '../hooks/useStickyNotes';
 import { motion, AnimatePresence } from 'framer-motion'; 
 
 // --- VARIANTS ---
-// Fix TypeScript Error dengan menambahkan "as const"
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
@@ -22,7 +22,6 @@ const staggerContainer = {
 };
 
 const Home = () => {
-  // Semua logika Supabase, state, dan fungsi aksi sudah diringkas di sini
   const { notes, setNotes, handleDoubleClick, saveNote, handleDragEnd, deleteNote } = useStickyNotes();
 
   return (
@@ -36,6 +35,9 @@ const Home = () => {
       <div className="relative z-10 w-full no-spatial">
         <Navbar />
       </div>
+
+      {/* Animasi Ular Retro (Otonom) */}
+      <SnakeBackground />
       
       <main className="flex-grow box-border px-8 md:px-[120px] flex flex-col justify-center pt-20 pb-20 relative z-10">
         <motion.div variants={staggerContainer} className="relative z-10 max-w-4xl">
