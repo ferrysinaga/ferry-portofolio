@@ -1,4 +1,5 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect } from 'react';
+import type { FormEvent } from 'react';
 import { supabase } from '../../supabaseClient';
 import { motion } from 'framer-motion';
 import type { Session } from '@supabase/supabase-js';
@@ -77,7 +78,12 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    if (session) { fetchPhotos(); fetchProjects(); }
+    if (!session) return;
+    const loadData = async () => {
+      await fetchPhotos();
+      await fetchProjects();
+    };
+    void loadData();
   }, [session]);
 
   const handleLogin = async (e: FormEvent) => {
@@ -116,7 +122,10 @@ const Admin = () => {
       setMessage("✅ Photo added!"); setFile(null); setDescription('');
       (document.getElementById('file-upload') as HTMLInputElement).value = '';
       fetchPhotos();
-    } catch (err: any) { setMessage("❌ Failed: " + err.message); }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      setMessage('❌ Failed: ' + msg);
+    }
     finally { setLoading(false); }
   };
 
@@ -166,7 +175,10 @@ const Admin = () => {
       setProjectLink(''); setProjectGithub(''); setProjectFigma('');
       (document.getElementById('project-upload') as HTMLInputElement).value = '';
       fetchProjects();
-    } catch (err: any) { setMessage("❌ Failed: " + err.message); }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Unknown error';
+      setMessage('❌ Failed: ' + msg);
+    }
     finally { setLoading(false); }
   };
 
