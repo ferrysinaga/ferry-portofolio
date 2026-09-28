@@ -1,9 +1,16 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { supabase } from '../../supabaseClient';
 import { motion } from 'framer-motion';
+import type { Session } from '@supabase/supabase-js';
+
+type GalleryPhoto = {
+  id: number;
+  image_url: string;
+  description: string;
+};
 
 const Admin = () => {
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<Session | null>(null);
   
   // State Login
   const [email, setEmail] = useState('');
@@ -18,7 +25,7 @@ const Admin = () => {
   const [description, setDescription] = useState('');
 
   // State Daftar Foto (READ)
-  const [photos, setPhotos] = useState<any[]>([]);
+  const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
 
   // State Edit Deskripsi (UPDATE)
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -29,11 +36,18 @@ const Admin = () => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
+    
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
     });
+    
     return () => subscription.unsubscribe();
   }, []);
+
+  const fetchPhotos = async () => {
+    const { data } = await supabase.from('gallery').select('*').order('id', { ascending: false });
+    if (data) setPhotos(data);
+  };
 
   // 2. Tarik Data Foto setelah Login (READ)
   useEffect(() => {
@@ -42,18 +56,17 @@ const Admin = () => {
     }
   }, [session]);
 
-  const fetchPhotos = async () => {
-    const { data } = await supabase.from('gallery').select('*').order('id', { ascending: false });
-    if (data) setPhotos(data);
-  };
-
   // 3. Logika Login & Logout
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setMessage('');
+    
     const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) setMessage("Gagal login: Email/Password salah!");
+    if (error) {
+      setMessage("❌ Gagal login: Email/Password salah!");
+    }
+    
     setLoading(false);
   };
 
@@ -62,7 +75,7 @@ const Admin = () => {
   };
 
   // 4. Logika Upload Foto (CREATE)
-  const handleUploadPhoto = async (e: React.FormEvent) => {
+  const handleUploadPhoto = async (e: FormEvent) => {
     e.preventDefault();
     if (!file) {
       setMessage("❌ Pilih file foto terlebih dahulu!");
@@ -91,6 +104,7 @@ const Admin = () => {
       setMessage("✅ Foto berhasil ditambahkan!");
       setFile(null);
       setDescription('');
+      
       const fileInput = document.getElementById('file-upload') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
       
@@ -160,7 +174,7 @@ const Admin = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
           <div>
             <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-            <p className="text-gray-500 mt-1">Halo, {session.user.email}</p>
+            <p className="text-gray-500 mt-1">Halo, {session.user?.email}</p>
           </div>
           <button onClick={handleLogout} className="text-red-500 font-bold border-2 border-red-500 px-6 py-2 rounded hover:bg-red-50 transition-colors">
             Logout

@@ -4,14 +4,11 @@ import { motion } from 'framer-motion';
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile] = useState(() => window.matchMedia("(pointer: coarse)").matches);
 
   useEffect(() => {
     // 1. Deteksi Touch Screen: Jangan jalankan kursor buatan di perangkat Mobile
-    if (window.matchMedia("(pointer: coarse)").matches) {
-      setIsMobile(true);
-      return;
-    }
+    if (isMobile) return;
 
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -39,7 +36,7 @@ const CustomCursor = () => {
       window.removeEventListener('mousemove', updateMousePosition);
       window.removeEventListener('mouseover', handleMouseOver);
     };
-  }, []);
+  }, [isMobile]);
 
   // Jika di HP, matikan kursor custom agar tidak mengganggu touch event
   if (isMobile) return null;

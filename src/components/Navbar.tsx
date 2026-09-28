@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion'; // 👈 Tambahan Framer Motion
+import { motion, type Variants } from 'framer-motion'; // 👈 Tambahan Framer Motion
 
 const Navbar: React.FC = () => {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
 
   // --- VARIANTS ANIMASI ---
-  const navVariants = {
+  const navVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
     }
   };
 
-  const linkVariants = {
+  const linkVariants: Variants = {
     hidden: { opacity: 0, x: 20 },
     show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 100 } }
   };
