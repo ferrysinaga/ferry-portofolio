@@ -4,14 +4,19 @@ import { motion } from 'framer-motion';
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Memperbarui posisi koordinat
+    // 1. Deteksi Touch Screen: Jangan jalankan kursor buatan di perangkat Mobile
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      setIsMobile(true);
+      return;
+    }
+
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
-    // Deteksi hover pada link atau tombol
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (
@@ -36,17 +41,25 @@ const CustomCursor = () => {
     };
   }, []);
 
+  // Jika di HP, matikan kursor custom agar tidak mengganggu touch event
+  if (isMobile) return null;
+
   return (
     <motion.div
-      // w-3 h-3 membuat titiknya sedikit lebih jelas (sekitar 12px)
-      className="fixed top-0 left-0 w-3 h-3 bg-[#1d1d1d] rounded-full pointer-events-none z-[9999]"
+      // 2. Efek X-RAY INVERT: Menggunakan bg-white dipadukan dengan mix-blend-mode
+      className="fixed top-0 left-0 w-4 h-4 bg-white rounded-full pointer-events-none z-[9999]"
+      style={{ mixBlendMode: 'difference' }} 
       animate={{
-        x: mousePosition.x - 6, // Dikurangi 6 agar sumbu persis di tengah titik
-        y: mousePosition.y - 6,
-        scale: isHovering ? 3.5 : 1, // Membesar 3.5x lipat saat hover link/tombol
-        opacity: isHovering ? 0.3 : 1 // Menjadi transparan (0.3) saat membesar agar teks tombol tetap terbaca
+        x: mousePosition.x - 8, // Dikurangi 8 agar tepat di tengah (ukuran 16px)
+        y: mousePosition.y - 8,
+        scale: isHovering ? 4 : 1, // Membesar 4x lipat, tidak perlu opacity transparan karena sudah efek Invert!
       }}
-      transition={{ type: "tween", ease: "backOut", duration: 0.15 }}
+      transition={{ 
+        // 3. SPRING PHYSICS: Sangat mulus, organik, tanpa lag yang kaku
+        x: { type: "spring", stiffness: 1000, damping: 40, mass: 0.1 },
+        y: { type: "spring", stiffness: 1000, damping: 40, mass: 0.1 },
+        scale: { type: "spring", stiffness: 300, damping: 20 }
+      }}
     />
   );
 };
