@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@layer base {
+  body {
+    /* Memindahkan class background dot dari home.tsx ke body global */
+    @apply bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px];
+  }
+}
+
 *{
   cursor: none !important;
 }

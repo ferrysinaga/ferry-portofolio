@@ -28,7 +28,7 @@ const Home = () => {
     <motion.div 
       initial="hidden" 
       animate="visible"
-      className="min-h-screen bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] flex flex-col relative overflow-hidden" 
+      className="min-h-screen flex flex-col relative overflow-hidden" 
       style={{ fontFamily: '"JetBrains Mono", monospace' }}
       onDoubleClick={handleDoubleClick} 
     >

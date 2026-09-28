@@ -68,7 +68,7 @@ const Project = () => {
     <motion.div
       initial="hidden"
       animate="visible"
-      className="min-h-screen bg-white"
+      className="min-h-screen"
       style={{ fontFamily: '"JetBrains Mono", monospace' }}
     >
       <div className="relative z-50">

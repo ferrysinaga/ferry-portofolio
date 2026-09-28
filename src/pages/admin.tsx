@@ -211,7 +211,7 @@ const Admin = () => {
   // ================= LOGIN =================
   if (!session) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 font-sans p-4">
+      <div className="min-h-screen flex items-center justify-center font-sans p-4">
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 w-full max-w-md">
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-gray-900">Admin Portal</h1>
@@ -238,7 +238,7 @@ const Admin = () => {
 
   // ================= DASHBOARD =================
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen bg-slate-50 flex flex-col md:flex-row font-sans">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col md:flex-row font-sans">
 
       {/* SIDEBAR */}
       <aside className="w-full md:w-64 bg-white border-r border-gray-200 flex flex-col shrink-0">

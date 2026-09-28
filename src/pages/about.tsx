@@ -30,7 +30,7 @@ const About = () => {
     <motion.div 
       initial="hidden" 
       animate="visible"
-      className="min-h-screen bg-white" 
+      className="min-h-screen" 
       style={{ fontFamily: '"JetBrains Mono", monospace' }}
     >
       {/* Navbar */}

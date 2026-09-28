@@ -70,7 +70,7 @@ const Gallery = () => {
       initial={{ opacity: 0, y: 20 }} 
       animate={{ opacity: 1, y: 0 }} 
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="min-h-screen bg-white relative overflow-hidden" 
+      className="min-h-screen relative overflow-hidden" 
       style={{ fontFamily: '"JetBrains Mono", monospace' }}
     >
       <Navbar />
