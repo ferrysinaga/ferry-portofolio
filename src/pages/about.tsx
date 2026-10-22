@@ -4,14 +4,23 @@ import profileImg from '../assets/foto-profil/foto-profil-1.png';
 import cvFile from '../assets/CV_Ferry-Firmando.pdf';
 import TimelineAccordion from '../components/TimelineAccordion';
 import CertificateAccordion from '../components/CertificateAccordion';
-import { tools, interests } from '../data/aboutData'; // experienceData & educationData dihapus
+import { tools, interests } from '../data/aboutData';
 import { motion, type Variants } from 'framer-motion';
-import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
+const LiveClock = () => {
+  const [time, setTime] = useState(() => new Date());
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => setTime(new Date()), 1000);
+    return () => window.clearInterval(intervalId);
+  }, []);
+
+  return (
+    <time className="font-bold text-[#1d1d1d]" dateTime={time.toISOString()}>
+      {time.toLocaleTimeString()}
+    </time>
+  );
+};
 
 // --- ANIMATION VARIANTS ---
 const fadeUpVariant = {
@@ -33,17 +42,30 @@ const chipVariant: Variants = {
 };
 
 const About = () => {
-  // STATE UNTUK DATA DINAMIS
   const [experiences, setExperiences] = useState<any[]>([]);
   const [educations, setEducations] = useState<any[]>([]);
 
-  // FUNGSI FETCH DATA DARI SUPABASE
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch Experiences
-      const { data: expData } = await supabase.from('experiences').select('*').order('id', { ascending: false });
-      if (expData) {
-        // Mapping data DB ke format yang bisa dibaca oleh TimelineAccordion
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+      if (!supabaseUrl || !supabaseKey) return;
+
+      const fetchTable = async (table: string) => {
+        const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=*&order=id.desc`, {
+          headers: {
+            apikey: supabaseKey,
+            Authorization: `Bearer ${supabaseKey}`
+          }
+        });
+
+        if (!response.ok) throw new Error(`Failed to fetch ${table}`);
+        return response.json();
+      };
+
+      try {
+        const expData = await fetchTable('experiences');
         const formattedExp = expData.map(item => ({
           ...item,
           title: item.role,
@@ -51,11 +73,8 @@ const About = () => {
           date: `${item.start_date} - ${item.end_date}`
         }));
         setExperiences(formattedExp);
-      }
 
-      // Fetch Education
-      const { data: eduData } = await supabase.from('education').select('*').order('id', { ascending: false });
-      if (eduData) {
+        const eduData = await fetchTable('education');
         const formattedEdu = eduData.map(item => ({
           ...item,
           title: item.institution,
@@ -63,6 +82,8 @@ const About = () => {
           date: `${item.start_year} - ${item.end_year}`
         }));
         setEducations(formattedEdu);
+      } catch (error) {
+        console.error('Unable to load about page data:', error);
       }
     };
 
@@ -81,9 +102,21 @@ const About = () => {
       </div>
 
       <main className="box-border px-8 md:px-[120px] py-10 overflow-hidden">
-        <motion.h1 variants={fadeUpVariant} className="font-bold text-[#1d1d1d] text-5xl md:text-[64px] drop-shadow-md" style={{ letterSpacing: '0.25em' }}>
-          ABOUT
-        </motion.h1>
+        
+        {/* HEADER SECTION DENGAN JAM */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <motion.h1 
+            variants={fadeUpVariant}
+            className="font-bold text-[#1d1d1d] text-5xl md:text-[64px] drop-shadow-md"
+            style={{ letterSpacing: '0.25em' }}
+          >
+            ABOUT
+          </motion.h1>
+          
+          <motion.div variants={fadeUpVariant}>
+            <LiveClock />
+          </motion.div>
+        </div>
         
         <div className="mt-12 flex flex-col-reverse md:flex-row gap-16 items-start">
           <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="flex flex-col gap-8 md:w-3/5 max-w-3xl relative z-10">
@@ -151,7 +184,6 @@ const About = () => {
             <h2 className="text-3xl font-bold text-[#1d1d1d] shrink-0">Experience</h2>
             <div className="h-1 w-full bg-gray-100 border-b-2 border-dashed border-gray-300"></div>
           </div>
-          {/* Kirim data state experiences ke TimelineAccordion */}
           <TimelineAccordion items={experiences} />
         </motion.div>
 
@@ -160,7 +192,6 @@ const About = () => {
             <h2 className="text-3xl font-bold text-[#1d1d1d] shrink-0">Education</h2>
             <div className="h-1 w-full bg-gray-100 border-b-2 border-dashed border-gray-300"></div>
           </div>
-          {/* Kirim data state educations ke TimelineAccordion */}
           <TimelineAccordion items={educations} />
         </motion.div>
 
@@ -169,7 +200,6 @@ const About = () => {
             <h2 className="text-3xl font-bold text-[#1d1d1d] shrink-0">Certificates</h2>
             <div className="h-1 w-full bg-gray-100 border-b-2 border-dashed border-gray-300"></div>
           </div>
-          {/* Anda perlu memperbarui komponen ini di dalamnya agar mengambil data dari supabase juga, atau oper data sebagai props jika diubah. */}
           <CertificateAccordion />
         </motion.div>
         

@@ -4,6 +4,7 @@ import ViewCounter from '../components/ViewCounter';
 import DecryptedText from '../components/DecryptedText';
 import StickyNoteItem from '../components/StickyNoteItem';
 import SnakeBackground from '../components/SnakeBackground'; 
+import LiveClock from '../components/src/components/LiveClock';
 import { useStickyNotes } from '../hooks/useStickyNotes';
 import { motion, AnimatePresence } from 'framer-motion'; 
 
@@ -88,9 +89,14 @@ const Home = () => {
           ))}
         </motion.div>
         
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3 }}>
-          <ViewCounter />
-        </motion.div>
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.8 }}>
+            <LiveClock />
+          </motion.div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3 }}>
+            <ViewCounter />
+          </motion.div>
+        </div>
       </div>
 
       {/* RENDER STICKY NOTES */}
