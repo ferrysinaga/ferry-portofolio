@@ -1,90 +1,127 @@
-import { useState } from 'react';
-import { certificateData } from '../data/aboutData';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { supabase } from "../../supabaseClient";
+
+// Definisi tipe data sesuai database
+type Certificate = {
+  id: number;
+  title: string;
+  issuer: string;
+  date: string;
+  image_url: string;
+  credential_id?: string;
+};
 
 const CertificateAccordion = () => {
-  // Menyimpan index accordion mana yang sedang terbuka. null = tertutup semua
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [certificates, setCertificates] = useState<Certificate[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const toggleExpand = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+  // Mengambil data dari Supabase
+  useEffect(() => {
+    const fetchCertificates = async () => {
+      const { data, error } = await supabase
+        .from('certificates')
+        .select('*')
+        .order('id', { ascending: false });
+
+      if (data && !error) {
+        setCertificates(data);
+      }
+      setLoading(false);
+    };
+
+    fetchCertificates();
+  }, []);
+
+  const toggleAccordion = (index: number) => {
+    setActiveIndex(activeIndex === index ? null : index);
   };
 
-  return (
-    <div className="w-full font-sans bg-white" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
-      {/* Table Header */}
-      <div className="flex items-center justify-between pb-4 px-2 md:px-4 text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest">
-        <div className="w-1/2 md:w-1/3 pr-2">Title</div>
-        <div className="w-1/4 hidden md:block">Issuer</div>
-        <div className="w-1/6 hidden md:block">Category</div>
-        <div className="w-1/4 md:w-1/6 text-right md:text-left">Year</div>
-        <div className="w-8"></div>
-      </div>
+  if (loading) {
+    return <div className="text-gray-500 font-medium">Loading certificates...</div>;
+  }
 
-      {certificateData.map((cert, index) => {
-        const isExpanded = expandedIndex === index;
+  if (certificates.length === 0) {
+    return <div className="text-gray-500 font-medium">No certificates available yet.</div>;
+  }
+
+  return (
+    <div className="w-full flex flex-col gap-4">
+      {certificates.map((cert, index) => {
+        const isActive = activeIndex === index;
 
         return (
-          <div key={index} className="border-t-2 last:border-b-2 border-[#1d1d1d] text-[#1d1d1d]">
-            
-            {/* Header Bar */}
-            <div 
-              className="flex items-center justify-between py-4 px-2 md:px-4 cursor-pointer hover:bg-gray-100 transition-colors duration-200 text-xs md:text-sm font-bold"
-              onClick={() => toggleExpand(index)}
+          <div 
+            key={cert.id} 
+            className="border-2 border-[#1d1d1d] bg-white shadow-[4px_4px_0px_0px_#1d1d1d] rounded-sm overflow-hidden transition-all"
+          >
+            {/* Header Accordion */}
+            <button
+              onClick={() => toggleAccordion(index)}
+              className="w-full flex items-center justify-between p-4 md:p-6 bg-white hover:bg-gray-50 transition-colors text-left"
             >
-              <div className="w-1/2 md:w-1/3 pr-2">{cert.title}</div>
-              <div className="w-1/4 hidden md:block">{cert.issuer}</div>
-              <div className="w-1/6 hidden md:block">{cert.category}</div>
-              <div className="w-1/4 md:w-1/6 text-right md:text-left">{cert.year}</div>
-              <div className="w-8 flex justify-end text-2xl font-light">
-                {isExpanded ? '×' : '+'}
+              <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
+                <h3 className="text-lg md:text-xl font-bold text-[#1d1d1d]">
+                  {cert.title}
+                </h3>
+                <span className="hidden md:block text-gray-300">|</span>
+                <p className="text-sm font-medium text-gray-600">
+                  {cert.issuer}
+                </p>
               </div>
-            </div>
-
-            {/* Konten yang meluas (Expanded View) */}
-            {isExpanded && (
-              <div className="flex flex-col md:flex-row gap-6 md:gap-8 p-4 md:p-6 transition-all duration-300 ease-in-out border-t-2 border-dashed border-gray-200 bg-gray-50">
-                {/* Bagian Kiri: Gambar Sertifikat */}
-                <div className="w-full md:w-2/5 shrink-0">
-                  <img 
-                    src={cert.image} 
-                    alt={cert.title}
-                    className="w-full h-auto object-cover border-2 border-[#1d1d1d] shadow-[4px_4px_0px_0px_#1d1d1d]"
-                  />
-                </div>
-
-                {/* Bagian Kanan: Detail Informasi */}
-                <div className="w-full md:w-3/5 flex flex-col gap-4 text-sm leading-relaxed">
-
-                  <div className="flex flex-col md:flex-row">
-                    <span className="w-36 shrink-0 font-bold mb-1 md:mb-0 text-gray-500">Description:</span>
-                    <p className="flex-1 font-medium">{cert.description}</p>
-                  </div>
-
-                  <div className="flex flex-col md:flex-row">
-                    <span className="w-36 shrink-0 font-bold mb-1 md:mb-0 text-gray-500">Skills Covered:</span>
-                    <p className="flex-1 font-medium">{cert.skillsCovered}</p>
-                  </div>
-
-                  <div className="flex flex-col md:flex-row items-start">
-                    <span className="w-36 shrink-0 font-bold mb-1 md:mb-0 text-gray-500">Credential ID:</span>
-                    <p className="flex-1 font-medium">{cert.credentialId}</p>
-                  </div>
-                  
-                  {/* Tombol View Certificate */}
-                  <div className="md:ml-36 mt-4">
-                    <a 
-                      href={cert.verifyLink} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="inline-block border-2 border-[#1d1d1d] bg-white text-[#1d1d1d] font-bold px-6 py-2 shadow-[2px_2px_0px_0px_#1d1d1d] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all duration-200"
-                    >
-                      Verify Certificate ➔
-                    </a>
-                  </div>
-
-                </div>
+              <div className="shrink-0 ml-4">
+                <motion.div
+                  animate={{ rotate: isActive ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <svg className="w-6 h-6 text-[#1d1d1d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </motion.div>
               </div>
-            )}
+            </button>
+
+            {/* Konten Accordion (Animasi Buka/Tutup) */}
+            <AnimatePresence>
+              {isActive && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: 'easeInOut' }}
+                  className="overflow-hidden border-t-2 border-dashed border-gray-200"
+                >
+                  <div className="p-4 md:p-6 bg-gray-50 flex flex-col md:flex-row gap-6 items-start">
+                    {/* Gambar Sertifikat */}
+                    <div className="w-full md:w-1/3 shrink-0 border-2 border-[#1d1d1d] p-1 bg-white shadow-[2px_2px_0px_0px_#1d1d1d]">
+                      <img 
+                        src={cert.image_url} 
+                        alt={cert.title} 
+                        className="w-full h-auto object-cover"
+                      />
+                    </div>
+
+                    {/* Detail Informasi */}
+                    <div className="flex-1 flex flex-col gap-3">
+                      <div>
+                        <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Date</p>
+                        <p className="text-[#1d1d1d] font-medium">{cert.date}</p>
+                      </div>
+                      
+                      {cert.credential_id && (
+                        <div>
+                          <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Credential ID</p>
+                          <p className="text-[#1d1d1d] font-mono text-sm bg-gray-200 px-2 py-1 rounded inline-block">
+                            {cert.credential_id}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         );
       })}

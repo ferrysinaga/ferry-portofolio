@@ -3,7 +3,7 @@ import Home from './pages/home';
 import Project from './pages/project';
 import About from './pages/about';
 import Gallery from './pages/gallery';
-import Admin from './pages/admin';
+import Admin from "./pages/admin";
 
 import SplashScreen from './components/SplashScreen';
 import CustomCursor from './components/CustomCursor';
