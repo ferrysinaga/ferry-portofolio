@@ -16,7 +16,17 @@ export default function CertificateManager() {
     if (data) setData(data);
   };
 
-  useEffect(() => { fetchData(); }, []);
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadData = async () => {
+      const { data } = await supabase.from('certificates').select('*').order('id', { ascending: false });
+      if (!cancelled && data) setData(data);
+    };
+
+    void loadData();
+    return () => { cancelled = true; };
+  }, []);
 
   const handleUpload = async (e: FormEvent) => {
     e.preventDefault();

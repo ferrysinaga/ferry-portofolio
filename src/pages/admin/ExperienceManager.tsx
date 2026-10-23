@@ -16,7 +16,17 @@ export default function ExperienceManager() {
     if (data) setData(data);
   };
 
-  useEffect(() => { fetchData(); }, []);
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadData = async () => {
+      const { data } = await supabase.from('experiences').select('*').order('id', { ascending: false });
+      if (isMounted && data) setData(data);
+    };
+
+    void loadData();
+    return () => { isMounted = false; };
+  }, []);
 
   const handleSave = async (e: FormEvent) => {
     e.preventDefault();

@@ -26,13 +26,17 @@ export default function ProjectsManager() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editForm, setEditForm] = useState<Partial<ProjectItem>>({});
 
-  const fetchProjects = async () => {
+  const fetchProjects = async (): Promise<ProjectItem[]> => {
     const { data } = await supabase.from('projects').select('*').order('id', { ascending: false });
-    if (data) setProjects(data);
+    return data ?? [];
   };
 
-  useEffect(() => { 
-    fetchProjects(); 
+  useEffect(() => {
+    let active = true;
+    void fetchProjects().then(data => {
+      if (active) setProjects(data);
+    });
+    return () => { active = false; };
   }, []);
 
   const handleUpload = async (e: FormEvent) => {
@@ -57,7 +61,7 @@ export default function ProjectsManager() {
       setProjectFile(null); setProjectTitle(''); setProjectDesc(''); setProjectRoles(''); setProjectTools('');
       setProjectLink(''); setProjectGithub(''); setProjectFigma('');
       (document.getElementById('project-upload') as HTMLInputElement).value = '';
-      fetchProjects();
+      void fetchProjects().then(setProjects);
     } catch (err: unknown) { 
       const msg = err instanceof Error ? err.message : 'Unknown error';
       setMessage('❌ Failed: ' + msg); 
@@ -70,7 +74,7 @@ export default function ProjectsManager() {
     if (!window.confirm("Delete this project?")) return;
     setLoading(true);
     await supabase.from('projects').delete().eq('id', id);
-    fetchProjects(); setLoading(false);
+    void fetchProjects().then(setProjects); setLoading(false);
   };
 
   const handleSaveEdit = async (id: number) => {
@@ -80,7 +84,7 @@ export default function ProjectsManager() {
       roles: toJsonArray(editForm.roles || ''), tools: toJsonArray(editForm.tools || ''),
       year: editForm.year, link: editForm.link || null, github_url: editForm.github_url || null, figma_url: editForm.figma_url || null,
     }).eq('id', id);
-    setEditingId(null); fetchProjects(); setLoading(false);
+    setEditingId(null); void fetchProjects().then(setProjects); setLoading(false);
   };
 
   return (

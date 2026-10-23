@@ -14,11 +14,11 @@ export default function GalleryManager() {
 
   const fetchPhotos = async () => {
     const { data } = await supabase.from('gallery').select('*').order('id', { ascending: false });
-    if (data) setPhotos(data);
+    return data ?? [];
   };
 
-  useEffect(() => { 
-    fetchPhotos(); 
+  useEffect(() => {
+    void fetchPhotos().then(setPhotos);
   }, []);
 
   const handleUpload = async (e: FormEvent) => {
@@ -37,7 +37,7 @@ export default function GalleryManager() {
       
       setMessage("✅ Photo added!"); setFile(null); setDescription('');
       (document.getElementById('file-upload') as HTMLInputElement).value = '';
-      fetchPhotos();
+      void fetchPhotos().then(setPhotos);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : 'Unknown error';
       setMessage('❌ Failed: ' + msg);
@@ -51,7 +51,7 @@ export default function GalleryManager() {
     setLoading(true);
     const { error } = await supabase.from('gallery').delete().eq('id', id);
     if (error) setMessage("❌ Failed to delete.");
-    else { setMessage("✅ Photo deleted!"); fetchPhotos(); }
+    else { setMessage("✅ Photo deleted!"); void fetchPhotos().then(setPhotos); }
     setLoading(false);
   };
 
@@ -59,7 +59,7 @@ export default function GalleryManager() {
     setLoading(true);
     const { error } = await supabase.from('gallery').update({ description: editDesc }).eq('id', id);
     if (error) setMessage("❌ Failed to update.");
-    else { setMessage("✅ Updated!"); setEditingId(null); fetchPhotos(); }
+    else { setMessage("✅ Updated!"); setEditingId(null); void fetchPhotos().then(setPhotos); }
     setLoading(false);
   };
 

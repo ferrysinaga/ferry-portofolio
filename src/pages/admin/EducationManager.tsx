@@ -13,10 +13,16 @@ export default function EducationManager() {
 
   const fetchData = async () => {
     const { data } = await supabase.from('education').select('*').order('id', { ascending: false });
-    if (data) setData(data);
+    return data;
   };
 
-  useEffect(() => { fetchData(); }, []);
+  useEffect(() => {
+    let active = true;
+    void fetchData().then(data => {
+      if (active && data) setData(data);
+    });
+    return () => { active = false; };
+  }, []);
 
   const handleSave = async (e: FormEvent) => {
     e.preventDefault();
@@ -30,7 +36,8 @@ export default function EducationManager() {
       setMessage(`✅ Education ${editingId ? 'updated' : 'added'}!`);
       setForm({ institution: '', degree: '', start_year: '', end_year: '', description: '' });
       setEditingId(null);
-      fetchData();
+      const data = await fetchData();
+      if (data) setData(data);
     }
     setLoading(false);
   };
@@ -38,7 +45,8 @@ export default function EducationManager() {
   const handleDelete = async (id: number) => {
     if (!window.confirm("Delete this?")) return;
     await supabase.from('education').delete().eq('id', id);
-    fetchData();
+    const data = await fetchData();
+    if (data) setData(data);
   };
 
   return (

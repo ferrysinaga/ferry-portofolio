@@ -27,6 +27,15 @@ type EducationRow = {
   description: string;
 };
 
+type TimelineEntry = {
+  title: string;
+  subtitle: string;
+  date: string;
+  description: string;
+  logo: string;
+  logoAlt: string;
+};
+
 // --- ANIMATION VARIANTS ---
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -47,8 +56,8 @@ const chipVariant: Variants = {
 };
 
 const About = () => {
-  const [experiences, setExperiences] = useState<unknown[]>([]);
-  const [educations, setEducations] = useState<unknown[]>([]);
+  const [experiences, setExperiences] = useState<TimelineEntry[]>([]);
+  const [educations, setEducations] = useState<TimelineEntry[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +67,9 @@ const About = () => {
           ...item,
           title: item.role,
           subtitle: item.company,
-          date: `${item.start_date} - ${item.end_date}`
+          date: `${item.start_date} - ${item.end_date}`,
+          logo: profileImg,
+          logoAlt: `${item.company} logo`
         }));
         setExperiences(formattedExp);
       }
@@ -69,7 +80,9 @@ const About = () => {
           ...item,
           title: item.institution,
           subtitle: item.degree,
-          date: `${item.start_year} - ${item.end_year}`
+          date: `${item.start_year} - ${item.end_year}`,
+          logo: profileImg,
+          logoAlt: `${item.institution} logo`
         }));
         setEducations(formattedEdu);
       }
@@ -171,7 +184,7 @@ const About = () => {
             <h2 className="text-3xl font-bold text-[#1d1d1d] shrink-0">Experience</h2>
             <div className="h-1 w-full bg-gray-100 border-b-2 border-dashed border-gray-300"></div>
           </div>
-          <TimelineAccordion items={experiences as { title: string; subtitle: string; date: string; description: string; }[]} />
+          <TimelineAccordion items={experiences} />
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariant} className="mt-20 w-full">
@@ -179,7 +192,7 @@ const About = () => {
             <h2 className="text-3xl font-bold text-[#1d1d1d] shrink-0">Education</h2>
             <div className="h-1 w-full bg-gray-100 border-b-2 border-dashed border-gray-300"></div>
           </div>
-          <TimelineAccordion items={educations as { title: string; subtitle: string; date: string; description: string; }[]} />
+          <TimelineAccordion items={educations} />
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariant} className="mt-20 w-full pb-10">
