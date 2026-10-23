@@ -6,9 +6,13 @@ import TimelineAccordion from '../components/TimelineAccordion';
 import CertificateAccordion from '../components/CertificateAccordion';
 import { tools, interests } from '../data/aboutData';
 import { motion, type Variants } from 'framer-motion';
-import { supabase } from '../../supabaseClient'; 
+import { createClient } from '@supabase/supabase-js';
 
-// --- DEFINISI TIPE DATA ---
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
+
 type ExperienceRow = {
   id: number;
   company: string;
@@ -16,6 +20,7 @@ type ExperienceRow = {
   start_date: string;
   end_date: string;
   description: string;
+  image_url?: string;
 };
 
 type EducationRow = {
@@ -25,15 +30,6 @@ type EducationRow = {
   start_year: string;
   end_year: string;
   description: string;
-};
-
-type TimelineEntry = {
-  title: string;
-  subtitle: string;
-  date: string;
-  description: string;
-  logo: string;
-  logoAlt: string;
 };
 
 // --- ANIMATION VARIANTS ---
@@ -55,12 +51,28 @@ const chipVariant: Variants = {
   visible: { opacity: 1, scale: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
 };
 
+const LiveClock = () => {
+  const [time, setTime] = useState(() => new Date());
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => setTime(new Date()), 1000);
+    return () => window.clearInterval(intervalId);
+  }, []);
+
+  return (
+    <time dateTime={time.toISOString()} className="font-bold text-[#1d1d1d]">
+      {time.toLocaleTimeString()}
+    </time>
+  );
+};
+
 const About = () => {
-  const [experiences, setExperiences] = useState<TimelineEntry[]>([]);
-  const [educations, setEducations] = useState<TimelineEntry[]>([]);
+  const [experiences, setExperiences] = useState<unknown[]>([]);
+  const [educations, setEducations] = useState<unknown[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
+      // Fetch Experiences dan pastikan image_url ikut dipetakan
       const { data: expData } = await supabase.from('experiences').select('*').order('id', { ascending: false });
       if (expData) {
         const formattedExp = (expData as ExperienceRow[]).map(item => ({
@@ -68,21 +80,19 @@ const About = () => {
           title: item.role,
           subtitle: item.company,
           date: `${item.start_date} - ${item.end_date}`,
-          logo: profileImg,
-          logoAlt: `${item.company} logo`
+          image_url: item.image_url // Menyertakan gambar experience
         }));
         setExperiences(formattedExp);
       }
 
+      // Fetch Education
       const { data: eduData } = await supabase.from('education').select('*').order('id', { ascending: false });
       if (eduData) {
         const formattedEdu = (eduData as EducationRow[]).map(item => ({
           ...item,
           title: item.institution,
           subtitle: item.degree,
-          date: `${item.start_year} - ${item.end_year}`,
-          logo: profileImg,
-          logoAlt: `${item.institution} logo`
+          date: `${item.start_year} - ${item.end_year}`
         }));
         setEducations(formattedEdu);
       }
@@ -115,6 +125,7 @@ const About = () => {
           </motion.h1>
           
           <motion.div variants={fadeUpVariant}>
+            <LiveClock />
           </motion.div>
         </div>
         
@@ -184,7 +195,7 @@ const About = () => {
             <h2 className="text-3xl font-bold text-[#1d1d1d] shrink-0">Experience</h2>
             <div className="h-1 w-full bg-gray-100 border-b-2 border-dashed border-gray-300"></div>
           </div>
-          <TimelineAccordion items={experiences} />
+          <TimelineAccordion items={experiences as { title: string; subtitle: string; date: string; description: string; image_url?: string; }[]} />
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariant} className="mt-20 w-full">
@@ -192,7 +203,7 @@ const About = () => {
             <h2 className="text-3xl font-bold text-[#1d1d1d] shrink-0">Education</h2>
             <div className="h-1 w-full bg-gray-100 border-b-2 border-dashed border-gray-300"></div>
           </div>
-          <TimelineAccordion items={educations} />
+          <TimelineAccordion items={educations as { title: string; subtitle: string; date: string; description: string; }[]} />
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariant} className="mt-20 w-full pb-10">
