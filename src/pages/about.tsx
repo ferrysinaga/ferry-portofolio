@@ -30,6 +30,8 @@ type EducationRow = {
   start_year: string;
   end_year: string;
   description: string;
+  logo?: string;
+  logoAlt?: string;
 };
 
 // --- ANIMATION VARIANTS ---
@@ -80,7 +82,9 @@ const About = () => {
           title: item.role,
           subtitle: item.company,
           date: `${item.start_date} - ${item.end_date}`,
-          image_url: item.image_url // Menyertakan gambar experience
+          image_url: item.image_url, // Menyertakan gambar experience
+          logo: item.image_url ?? '',
+          logoAlt: item.company
         }));
         setExperiences(formattedExp);
       }
@@ -92,7 +96,9 @@ const About = () => {
           ...item,
           title: item.institution,
           subtitle: item.degree,
-          date: `${item.start_year} - ${item.end_year}`
+          date: `${item.start_year} - ${item.end_year}`,
+          logo: item.logo ?? '',
+          logoAlt: item.logoAlt ?? item.institution
         }));
         setEducations(formattedEdu);
       }
@@ -195,7 +201,7 @@ const About = () => {
             <h2 className="text-3xl font-bold text-[#1d1d1d] shrink-0">Experience</h2>
             <div className="h-1 w-full bg-gray-100 border-b-2 border-dashed border-gray-300"></div>
           </div>
-          <TimelineAccordion items={experiences as { title: string; subtitle: string; date: string; description: string; image_url?: string; }[]} />
+          <TimelineAccordion items={experiences as { title: string; subtitle: string; date: string; description: string; image_url?: string; logo: string; logoAlt: string; }[]} />
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariant} className="mt-20 w-full">
@@ -203,7 +209,7 @@ const About = () => {
             <h2 className="text-3xl font-bold text-[#1d1d1d] shrink-0">Education</h2>
             <div className="h-1 w-full bg-gray-100 border-b-2 border-dashed border-gray-300"></div>
           </div>
-          <TimelineAccordion items={educations as { title: string; subtitle: string; date: string; description: string; }[]} />
+          <TimelineAccordion items={educations as { title: string; subtitle: string; date: string; description: string; logo: string; logoAlt: string; }[]} />
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariant} className="mt-20 w-full pb-10">
