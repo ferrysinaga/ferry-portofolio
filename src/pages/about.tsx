@@ -6,20 +6,25 @@ import TimelineAccordion from '../components/TimelineAccordion';
 import CertificateAccordion from '../components/CertificateAccordion';
 import { tools, interests } from '../data/aboutData';
 import { motion, type Variants } from 'framer-motion';
+import { supabase } from '../../supabaseClient'; 
 
-const LiveClock = () => {
-  const [time, setTime] = useState(() => new Date());
+// --- DEFINISI TIPE DATA ---
+type ExperienceRow = {
+  id: number;
+  company: string;
+  role: string;
+  start_date: string;
+  end_date: string;
+  description: string;
+};
 
-  useEffect(() => {
-    const intervalId = window.setInterval(() => setTime(new Date()), 1000);
-    return () => window.clearInterval(intervalId);
-  }, []);
-
-  return (
-    <time className="font-bold text-[#1d1d1d]" dateTime={time.toISOString()}>
-      {time.toLocaleTimeString()}
-    </time>
-  );
+type EducationRow = {
+  id: number;
+  institution: string;
+  degree: string;
+  start_year: string;
+  end_year: string;
+  description: string;
 };
 
 // --- ANIMATION VARIANTS ---
@@ -42,48 +47,31 @@ const chipVariant: Variants = {
 };
 
 const About = () => {
-  const [experiences, setExperiences] = useState<any[]>([]);
-  const [educations, setEducations] = useState<any[]>([]);
+  const [experiences, setExperiences] = useState<unknown[]>([]);
+  const [educations, setEducations] = useState<unknown[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-      if (!supabaseUrl || !supabaseKey) return;
-
-      const fetchTable = async (table: string) => {
-        const response = await fetch(`${supabaseUrl}/rest/v1/${table}?select=*&order=id.desc`, {
-          headers: {
-            apikey: supabaseKey,
-            Authorization: `Bearer ${supabaseKey}`
-          }
-        });
-
-        if (!response.ok) throw new Error(`Failed to fetch ${table}`);
-        return response.json();
-      };
-
-      try {
-        const expData = await fetchTable('experiences');
-        const formattedExp = expData.map(item => ({
+      const { data: expData } = await supabase.from('experiences').select('*').order('id', { ascending: false });
+      if (expData) {
+        const formattedExp = (expData as ExperienceRow[]).map(item => ({
           ...item,
           title: item.role,
           subtitle: item.company,
           date: `${item.start_date} - ${item.end_date}`
         }));
         setExperiences(formattedExp);
+      }
 
-        const eduData = await fetchTable('education');
-        const formattedEdu = eduData.map(item => ({
+      const { data: eduData } = await supabase.from('education').select('*').order('id', { ascending: false });
+      if (eduData) {
+        const formattedEdu = (eduData as EducationRow[]).map(item => ({
           ...item,
           title: item.institution,
           subtitle: item.degree,
           date: `${item.start_year} - ${item.end_year}`
         }));
         setEducations(formattedEdu);
-      } catch (error) {
-        console.error('Unable to load about page data:', error);
       }
     };
 
@@ -114,7 +102,6 @@ const About = () => {
           </motion.h1>
           
           <motion.div variants={fadeUpVariant}>
-            <LiveClock />
           </motion.div>
         </div>
         
@@ -184,7 +171,7 @@ const About = () => {
             <h2 className="text-3xl font-bold text-[#1d1d1d] shrink-0">Experience</h2>
             <div className="h-1 w-full bg-gray-100 border-b-2 border-dashed border-gray-300"></div>
           </div>
-          <TimelineAccordion items={experiences} />
+          <TimelineAccordion items={experiences as { title: string; subtitle: string; date: string; description: string; }[]} />
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariant} className="mt-20 w-full">
@@ -192,7 +179,7 @@ const About = () => {
             <h2 className="text-3xl font-bold text-[#1d1d1d] shrink-0">Education</h2>
             <div className="h-1 w-full bg-gray-100 border-b-2 border-dashed border-gray-300"></div>
           </div>
-          <TimelineAccordion items={educations} />
+          <TimelineAccordion items={educations as { title: string; subtitle: string; date: string; description: string; }[]} />
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariant} className="mt-20 w-full pb-10">
