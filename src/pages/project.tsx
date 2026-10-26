@@ -87,8 +87,8 @@ export default function Projects() {
         <Navbar />
       </div>
 
-      <main className="box-border px-8 md:px-[120px] py-10 overflow-hidden max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+      <main className="box-border px-8 md:px-[120px] py-10 overflow-hidden">
+        <div className="mb-12">
           <motion.h1
             variants={fadeUpVariant}
             className="font-bold text-[#1d1d1d] text-5xl md:text-[64px] drop-shadow-md"
@@ -96,7 +96,7 @@ export default function Projects() {
           >
             PROJECTS
           </motion.h1>
-          <motion.p variants={fadeUpVariant} className="text-gray-600 font-bold text-sm md:text-base">
+          <motion.p variants={fadeUpVariant} className="mt-4 text-gray-500 text-lg max-w-2xl leading-relaxed">
             Showcase of my latest works & developments
           </motion.p>
         </div>

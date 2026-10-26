@@ -64,7 +64,7 @@ export default function GalleryManager() {
   };
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+    <div className="admin-manager grid grid-cols-1 xl:grid-cols-3 gap-6 md:gap-8">
       {/* KIRI: Form */}
       <div className="xl:col-span-1 bg-white border border-gray-200 rounded-xl shadow-sm p-6">
         <h3 className="text-base font-semibold text-gray-900 mb-5 pb-3 border-b border-gray-100">Add New Photo</h3>

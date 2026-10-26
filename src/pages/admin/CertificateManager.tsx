@@ -63,7 +63,7 @@ export default function CertificateManager() {
   };
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+    <div className="admin-manager grid grid-cols-1 xl:grid-cols-3 gap-6 md:gap-8">
       <div className="xl:col-span-1 bg-white border rounded-xl p-6 h-fit">
         <h3 className="font-semibold mb-4">Add Certificate</h3>
         {message && <div className="mb-4 p-3 text-sm rounded-md border bg-gray-50">{message}</div>}

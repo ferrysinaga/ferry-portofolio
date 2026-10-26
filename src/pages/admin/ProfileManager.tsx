@@ -30,7 +30,7 @@ export default function ProfileManager({ session }: { session: Session }) {
   const btnClass = "bg-[#1d1d1d] text-white px-6 py-3 font-bold border-2 border-[#1d1d1d] shadow-[4px_4px_0px_0px_#e5e7eb] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-300 rounded-none uppercase tracking-wider mt-2";
 
   return (
-    <div className="bg-white border-4 border-[#1d1d1d] shadow-[8px_8px_0px_0px_#1d1d1d] p-8 max-w-2xl">
+    <div className="admin-manager bg-white border-4 border-[#1d1d1d] shadow-[8px_8px_0px_0px_#1d1d1d] p-6 md:p-8 max-w-2xl">
       <h3 className="text-2xl font-bold text-[#1d1d1d] uppercase tracking-widest border-b-4 border-[#1d1d1d] inline-block pb-1 mb-6">Profile Settings</h3>
       
       <div className="mb-8">

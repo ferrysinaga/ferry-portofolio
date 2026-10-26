@@ -4,6 +4,7 @@ import { supabase } from '../../../supabaseClient';
 import { motion } from 'framer-motion';
 import type { Session } from '@supabase/supabase-js';
 
+import SnakeBackground from '../../components/SnakeBackground';
 import AdminSidebar from './AdminSidebar';
 import GalleryManager from './GalleryManager';
 import ProjectsManager from './ProjectsManager';
@@ -90,8 +91,9 @@ export default function AdminPage() {
 
   if (isRecovering) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-gray-100" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white p-8 border-4 border-[#1d1d1d] shadow-[8px_8px_0px_0px_#1d1d1d] w-full max-w-md">
+      <div className="admin-theme relative isolate min-h-screen flex items-center justify-center p-4 overflow-hidden" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+        <SnakeBackground />
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="relative z-10 bg-white p-8 border-4 border-[#1d1d1d] shadow-[8px_8px_0px_0px_#1d1d1d] w-full max-w-md">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-[#1d1d1d] uppercase tracking-widest border-b-4 border-[#1d1d1d] inline-block pb-1">Reset</h1>
             <p className="text-[#1d1d1d] mt-2 font-medium">Set your new password.</p>
@@ -110,8 +112,9 @@ export default function AdminPage() {
 
   if (!session) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-gray-100" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white p-8 border-4 border-[#1d1d1d] shadow-[8px_8px_0px_0px_#1d1d1d] w-full max-w-md">
+      <div className="admin-theme relative isolate min-h-screen flex items-center justify-center p-4 overflow-hidden" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+        <SnakeBackground />
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="relative z-10 bg-white p-8 border-4 border-[#1d1d1d] shadow-[8px_8px_0px_0px_#1d1d1d] w-full max-w-md">
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-[#1d1d1d] uppercase tracking-widest border-b-4 border-[#1d1d1d] inline-block pb-1">Admin</h1>
             <p className="text-[#1d1d1d] mt-2 font-medium">System authentication.</p>
@@ -137,18 +140,20 @@ export default function AdminPage() {
   }
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col md:flex-row" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="admin-theme relative isolate min-h-screen flex flex-col md:flex-row" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+      <SnakeBackground />
       <AdminSidebar 
         session={session} 
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         onLogout={() => supabase.auth.signOut()} 
       />
-      <main className="flex-1 p-6 md:p-12 overflow-y-auto bg-gray-100">
+      <main className="relative z-10 flex-1 min-w-0 p-5 md:p-10 overflow-y-auto">
         <div className="max-w-6xl mx-auto">
           <div className="mb-10">
-            <h2 className="text-4xl font-bold text-[#1d1d1d] uppercase tracking-widest">{activeTab}</h2>
-            <div className="h-1 w-full max-w-md mt-4 bg-gray-200 border-b-4 border-dashed border-[#1d1d1d]"></div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.3em] text-gray-500">Portfolio control panel</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-[#1d1d1d] uppercase tracking-widest drop-shadow-sm">{activeTab}</h2>
+            <div className="h-1 w-full max-w-md mt-4 bg-gray-100 border-b-2 border-dashed border-gray-400"></div>
           </div>
           {renderContent()}
         </div>

@@ -94,7 +94,7 @@ export default function ExperienceManager() {
   const btnClass = "bg-[#1d1d1d] text-white py-3 font-bold border-2 border-[#1d1d1d] shadow-[4px_4px_0px_0px_#e5e7eb] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-300 rounded-none uppercase tracking-wider text-sm";
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-8" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
+    <div className="admin-manager grid grid-cols-1 xl:grid-cols-3 gap-6 md:gap-8" style={{ fontFamily: '"JetBrains Mono", monospace' }}>
       
       {/* FORM KOLOM KIRI */}
       <div className="xl:col-span-1 bg-white border-4 border-[#1d1d1d] shadow-[8px_8px_0px_0px_#1d1d1d] p-6 h-fit">
