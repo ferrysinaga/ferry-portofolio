@@ -17,6 +17,10 @@ interface ProjectAccordionProps {
   projects: ProjectItemProps[];
 }
 
+const getProjectImages = (project: ProjectItemProps) => (
+  (Array.isArray(project.imageUrl) ? project.imageUrl : [project.imageUrl]).filter(Boolean)
+);
+
 const ProjectAccordion: React.FC<ProjectAccordionProps> = ({ projects }) => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
   const [lightbox, setLightbox] = useState<{ projectIdx: number; imgIdx: number } | null>(null);
@@ -48,7 +52,7 @@ const ProjectAccordion: React.FC<ProjectAccordionProps> = ({ projects }) => {
 
       {projects.map((project, index) => {
         const isExpanded = expandedIndex === index;
-        const images = Array.isArray(project.imageUrl) ? project.imageUrl : [project.imageUrl];
+        const images = getProjectImages(project);
 
         return (
           <div key={index} className="border-t-2 last:border-b-2 border-[#1d1d1d] text-[#1d1d1d]">
@@ -70,14 +74,20 @@ const ProjectAccordion: React.FC<ProjectAccordionProps> = ({ projects }) => {
               <div className="flex flex-col md:flex-row gap-6 md:gap-8 p-4 md:p-6 transition-all duration-300 ease-in-out border-t-2 border-dashed border-gray-200 bg-gray-50">
                 {/* Left: Thumbnail/Lightbox Trigger */}
                 <div 
-                  className="w-full md:w-2/5 shrink-0 relative aspect-[1/1] overflow-hidden rounded-sm cursor-pointer group border-2 border-[#1d1d1d] shadow-[4px_4px_0px_0px_#1d1d1d]"
-                  onClick={() => setLightbox({ projectIdx: index, imgIdx: 0 })}
+                  className={`w-full md:w-2/5 shrink-0 relative aspect-[1/1] overflow-hidden rounded-sm group border-2 border-[#1d1d1d] shadow-[4px_4px_0px_0px_#1d1d1d] ${images.length > 0 ? 'cursor-pointer' : ''}`}
+                  onClick={images.length > 0 ? () => setLightbox({ projectIdx: index, imgIdx: 0 }) : undefined}
                 >
-                  <img 
-                    src={images[0]} 
-                    alt={project.title}
-                    className="w-full h-full object-cover bg-gray-800 group-hover:scale-105 transition-transform duration-500"
-                  />
+                  {images.length > 0 ? (
+                    <img
+                      src={images[0]}
+                      alt={project.title}
+                      className="w-full h-full object-cover bg-gray-800 group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gray-100 font-bold text-gray-400 text-xs">
+                      NO IMAGE AVAILABLE
+                    </div>
+                  )}
                   {images.length > 1 && (
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 pt-12 flex justify-center items-end opacity-90 group-hover:opacity-100 transition-opacity">
                       <span className="text-white text-[10px] md:text-xs font-bold tracking-wider border border-white/50 px-3 py-1.5 bg-black/40 rounded-sm backdrop-blur-sm group-hover:bg-white group-hover:text-black group-hover:border-white transition-colors duration-300">
@@ -156,7 +166,7 @@ const ProjectAccordion: React.FC<ProjectAccordionProps> = ({ projects }) => {
             
             {/* Nav Buttons */}
             {(() => {
-              const currentProjectImgs = Array.isArray(projects[lightbox.projectIdx].imageUrl) ? projects[lightbox.projectIdx].imageUrl : [projects[lightbox.projectIdx].imageUrl];
+              const currentProjectImgs = getProjectImages(projects[lightbox.projectIdx]);
               if (currentProjectImgs.length > 1) {
                 return (
                   <>
@@ -173,7 +183,7 @@ const ProjectAccordion: React.FC<ProjectAccordionProps> = ({ projects }) => {
             })()}
 
             <img 
-              src={Array.isArray(projects[lightbox.projectIdx].imageUrl) ? projects[lightbox.projectIdx].imageUrl[lightbox.imgIdx] : projects[lightbox.projectIdx].imageUrl as string} 
+              src={getProjectImages(projects[lightbox.projectIdx])[lightbox.imgIdx]}
               alt="Enlarged preview" 
               className="max-w-full max-h-[90vh] object-contain rounded-md shadow-2xl cursor-default" 
               onClick={(e) => e.stopPropagation()} 
