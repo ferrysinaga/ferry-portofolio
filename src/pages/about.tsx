@@ -4,7 +4,6 @@ import profileImg from '../assets/foto-profil/foto-profil-1.png';
 import cvFile from '../assets/CV_Ferry-Firmando.pdf';
 import TimelineAccordion from '../components/TimelineAccordion';
 import CertificateAccordion from '../components/CertificateAccordion';
-import { tools, interests } from '../data/aboutData';
 import { motion, type Variants } from 'framer-motion';
 import { createClient } from '@supabase/supabase-js';
 
