@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, type Variants } from 'framer-motion'; // 👈 Tambahan Framer Motion
+import { useTheme } from '../context/theme-context';
 
 const Navbar: React.FC = () => {
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
   const isActive = (path: string) => location.pathname === path;
 
   // --- VARIANTS ANIMASI ---
@@ -51,7 +53,7 @@ const Navbar: React.FC = () => {
         variants={navVariants}
         initial="hidden"
         animate="show"
-        className="flex flex-col items-end space-y-4 pt-2"
+        className="flex flex-col items-end gap-4 pt-2"
         style={{ fontFamily: '"JetBrains Mono", monospace' }}
       >
         {links.map((link) => {
@@ -73,6 +75,17 @@ const Navbar: React.FC = () => {
             </motion.div>
           );
         })}
+        <motion.button
+          variants={linkVariants}
+          type="button"
+          onClick={toggleTheme}
+          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          aria-pressed={theme === 'dark'}
+          className="relative group text-[16px] text-gray-500 hover:text-[#1d1d1d] transition-colors duration-200"
+        >
+          {theme === 'light' ? '☾ Dark mode' : '☀ Light mode'}
+          <span className="absolute left-0 -bottom-1 w-full h-[3px] bg-[#1d1d1d] transition-transform duration-300 origin-left scale-x-0 group-hover:scale-x-100"></span>
+        </motion.button>
       </motion.div>
 
     </nav>

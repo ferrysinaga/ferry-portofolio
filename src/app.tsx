@@ -7,10 +7,11 @@ import Admin from "./pages/admin";
 
 import SplashScreen from './components/SplashScreen';
 import CustomCursor from './components/CustomCursor';
+import { ThemeProvider } from './context/ThemeProvider';
 
 function App() {
   return (
-    <>
+    <ThemeProvider>
       <CustomCursor />
       <SplashScreen />
       
@@ -23,7 +24,7 @@ function App() {
           <Route path="/admin" element={<Admin />} /> 
         </Routes>
       </Router>
-    </>
+    </ThemeProvider>
   );
 }
 
